@@ -12,6 +12,7 @@ else{
     $_SESSION['name'] = 'Admin';
 }
 
+$_SESSION['decode'] = '';
 
 ?>
 
@@ -25,7 +26,7 @@ else{
     <link rel="stylesheet" href="./style/Style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Main</title>
+    <title>เข้าสู่ระบบ</title>
 </head>
 
 <body class="setfont">
@@ -61,7 +62,7 @@ else{
                               <input type="password" name="txtPass" id="txtPass" class="form-control" placeholder="Password" required>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm btn-block">เข้าสู่ระบบ</button>
-                            <a href = "./forgotpassword.php" type="text" class="btn btn-secondary btn-sm btn-block">ลืมรหัสผ่าน ?</a>
+                            <a href = "./view/forgetPass/ForgetPass.php" type="text" class="btn btn-secondary btn-sm btn-block">ลืมรหัสผ่าน ?</a>
                           </form>
                     </div>
                 </div>

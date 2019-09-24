@@ -1,11 +1,13 @@
 <?php
 session_start();
 include_once('../../model/connect.php');error_reporting(0);
-// $_SESSION['Std_id'] = "";
-// $id = $_GET['Std_id'];
-// $_SESSION['Std_edit'] = $id;
-$sql = "SELECT * FROM teacher_tb";
-$query = $conn->query($sql);
+// ู$id = "";
+// $_SESSION['Teach_edit'] = "";
+// $id = $_GET['Teach_id'];
+// $_SESSION['Teach_edit'] = $id;
+// $sql = "SELECT * FROM teacher_tb WHERE Teach_id = '$id'";
+// $query = $conn->query($sql);
+// $result = $query->fetch_assoc()
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@ $query = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จัดการบุคลากร</title>
+    <title>เปลี่ยนรหัสผ่าน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -46,7 +48,7 @@ $query = $conn->query($sql);
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>
                 <li>
-                    <a href="../main/Main.php">ข้อมูลส่วนตัว</a>
+                    <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
                     <a href="../managerPersonnel/managerPersonnel.php">จัดการบุคลากร</a>
@@ -74,8 +76,7 @@ $query = $conn->query($sql);
 
         <!-- Page Content  -->
         <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -89,13 +90,11 @@ $query = $conn->query($sql);
                     </button>
                 </div>
             </nav>
-            <h3>รายชื่อ เจ้าหน้าที่ อาสาสมาคมกู้ภัยลำปาง</h3>
-<button class="btn btn-success btn-sm m-1"><a href="./AddPersonal.php"> + เพิ่มบุคลากร</a></button> 
-<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
-<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
-
-                        <!-- alert  -->
-                        <?php if($_GET['susccess'] == 1){ ?>
+            <a class="btn btn-sm btn-secondary m-1" href="../main/Main.php"> < กลับหน้าเดิม</a>
+            <h3 class="text-center">เปลี่ยนรหัสผ่าน</h3>
+            <hr>
+ <!-- alert  -->
+ <?php if($_GET['susccess'] == 1){ ?>
     <div class="alert alert-success" role="alert">
   สำเร็จ
 </div>
@@ -106,34 +105,36 @@ $query = $conn->query($sql);
 </div> <?php } ?>
 <!-- end alert  -->
 
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">รหัสบุคลากร</th>
-                        <th scope="col">ชื่อ - นามสกุล</th>
-                        <th scope="col">อีเมล์</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ลบ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+            <form id="myform" name='myform' method="POST" action="../../control/editPass/EditPass.php">
+                <!-- รหัสผ่านเดิม -->
+                <div class="form-group row">
+                    <label for="txtpass"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสผ่านเดิม : </label>
+                    <div class="col-sm-5">
+                        <input type="password" name="txtpass" class="form-control form-control-sm" id="txtpass" required></div>
+                </div>
+               
+                <!-- รหัสผ่านใหม่ -->
+                <div class="form-group row">
+                    <label for="txtpassnew"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสผ่านใหม่ : </label>
+                    <div class="col-sm-5">
+                        <input type="password" name="txtpassnew" class="form-control form-control-sm" id="txtpassnew" required></div>
+                    </div>
+                <!-- ยืนยันรหัสผ่านใหม่ -->
+                <div class="form-group row">
+                    <label for="txtpassnew2"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ยืนยันรหัสผ่านใหม่ : </label>
+                    <div class="col-sm-5">
+                        <input type="password" name="txtpassnew2" class="form-control form-control-sm" id="txtpassnew2" required></div>
+                </div>
 
-                        <tbody>
-                            <tr>
-                            <?php while($result = $query->fetch_assoc()){ ?>
-                              <td><?php echo $result['tc_code']; ?></td>
-                              <td><?php echo $result['tc_name']; ?></td> 
-                              <td><?php echo $result['tc_email']; ?></td>
-                              <td><a class="btn btn-dark btn-sm" href="./EditPersonal.php?tcID=<?php echo $result['tc_id']; ?>">แก้ไข</a></td>
-                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('คุณแน่ใจแล้วใช่ไหม?') == true){window.location='../../control/personnal/DelPersonal.php?id=<?php echo $result["tc_id"];?>';}">ลบ</a></td>
-                            </tr>
-                            <?php } ?>
-                          </tbody>
-                  </table>
-
-
+     
+            <div class="row">
+                <button class="btn btn-sm btn-success mx-auto col-2">ยืนยัน</button>
+            </div>
         </div>
-
+        </form>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

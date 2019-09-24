@@ -6,9 +6,15 @@ $name  = $_POST['txtname'];
 $card = $_POST['txtcard'];
 $birth = $_POST['txtbirth'];
 $email = $_POST['txtemail'];
-// แปลงรหัสผ่าน
-$password = base64_encode($birth);
 
+$day = substr($birth,-2);
+$month = substr($birth,-5,2);
+$year = 543 + substr($birth,-10,4);
+$yearsub = substr($year ,-2);
+$cardsub = substr($card,-4);
+$realPass = $day.$month.$yearsub.$cardsub;
+// แปลงรหัสผ่าน
+$password = base64_encode($realPass);
 
 $sql = "INSERT INTO `teacher_tb` (`tc_id`, `tc_code`, `tc_name`, `tc_idCard`, `tc_email`, `tc_date`) 
         VALUES (NULL, '".$code."', '".$name."', '".$card."', '".$email."','".$birth."')";

@@ -7,6 +7,7 @@ if($_SESSION['Type_id'] == 2){
     $result = $query -> FETCH_ASSOC();
     $name = $result['tc_name'];
     $code = $result['tc_code'];
+    $date = $result['tc_date'];
 }
 else{
     $name = 'Admin';
@@ -22,7 +23,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ข้อมูลส่วนตัวนักศึกษา</title>
+    <title>หน้าหลัก</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -109,7 +110,11 @@ else{
             <b>รหัสตำแหน่ง : </b>
             <label for="idcard"><?php echo $code; ?> </label> <br>
 
-            <button class="btn btn-sm btn-primary mt-3"><a href="#"></a>แก้ไขข้อมูลส่วนตัว</button>
+            <b>วันเกิด : </b>
+            <label for="idcard"><?php echo $date; ?> </label> <br>
+
+
+            <a class="btn btn-sm btn-primary mt-3" href="../editPass/EditPass.php">เปลี่ยนรหัสผ่าน</a>
             <?php }?>
 
 

@@ -1,11 +1,12 @@
 <?php
 session_start();
-include_once('../../model/connect.php');error_reporting(0);
-// $_SESSION['Std_id'] = "";
-// $id = $_GET['Std_id'];
-// $_SESSION['Std_edit'] = $id;
-$sql = "SELECT * FROM teacher_tb";
+include_once('../../model/connect.php');
+error_reporting(0);
+$id = $_GET['tcID'];
+
+$sql = "SELECT * FROM teacher_tb WHERE tc_id = '".$id."'";
 $query = $conn->query($sql);
+$result = $query->FETCH_ASSOC();
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,14 +16,13 @@ $query = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จัดการบุคลากร</title>
+    <title>เพิ่ม/แก้ไข ข้อมูลส่วนตัวนักศึกษา</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="../../style/Style.css">
-
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
@@ -46,7 +46,7 @@ $query = $conn->query($sql);
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>
                 <li>
-                    <a href="../main/Main.php">ข้อมูลส่วนตัว</a>
+                    <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
                     <a href="../managerPersonnel/managerPersonnel.php">จัดการบุคลากร</a>
@@ -74,8 +74,7 @@ $query = $conn->query($sql);
 
         <!-- Page Content  -->
         <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -89,51 +88,53 @@ $query = $conn->query($sql);
                     </button>
                 </div>
             </nav>
-            <h3>รายชื่อ เจ้าหน้าที่ อาสาสมาคมกู้ภัยลำปาง</h3>
-<button class="btn btn-success btn-sm m-1"><a href="./AddPersonal.php"> + เพิ่มบุคลากร</a></button> 
-<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
-<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
-
-                        <!-- alert  -->
-                        <?php if($_GET['susccess'] == 1){ ?>
-    <div class="alert alert-success" role="alert">
-  สำเร็จ
-</div>
-
-<?php }else if($_GET['susccess'] == 2) { ?>
-    <div class="alert alert-danger" role="alert">
-  มีบางอย่างผิดพลาด ลองอีกครั้ง
-</div> <?php } ?>
-<!-- end alert  -->
-
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">รหัสบุคลากร</th>
-                        <th scope="col">ชื่อ - นามสกุล</th>
-                        <th scope="col">อีเมล์</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ลบ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                        <tbody>
-                            <tr>
-                            <?php while($result = $query->fetch_assoc()){ ?>
-                              <td><?php echo $result['tc_code']; ?></td>
-                              <td><?php echo $result['tc_name']; ?></td> 
-                              <td><?php echo $result['tc_email']; ?></td>
-                              <td><a class="btn btn-dark btn-sm" href="./EditPersonal.php?tcID=<?php echo $result['tc_id']; ?>">แก้ไข</a></td>
-                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('คุณแน่ใจแล้วใช่ไหม?') == true){window.location='../../control/personnal/DelPersonal.php?id=<?php echo $result["tc_id"];?>';}">ลบ</a></td>
-                            </tr>
-                            <?php } ?>
-                          </tbody>
-                  </table>
-
-
+            <a class="btn btn-sm btn-secondary m-1" href="./ManagerPersonnel.php"> < กลับหน้าเดิม</a>
+            <h3 class="text-center">เพิ่มบุคลากร</h3>
+            <hr>
+            <form id="myform" name='myform' method="POST" action="../../control/personnal/AddPersonal.php">
+                <!-- รหัสบุคลากร -->
+                <div class="form-group row">
+        
+                    <label for="txtcode"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสบุคลากร : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" value="<?php echo $result['tc_code'] ?>" required></div>
+                </div>
+               
+                <!-- ชื่อ -->
+                <div class="form-group row">
+                    <label for="txtname"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อ : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" value="<?php echo $result['tc_name'] ?>" required></div>
+                    </div>
+                <!-- เลขที่บัตรประจำตัวประชาชน -->
+                <div class="form-group row">
+                    <label for="txtcard"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">เลขที่บัตรประจำตัวประชาชน : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtcard" class="form-control form-control-sm" id="txtcard" value="<?php echo $result['tc_idCard'] ?>" required></div>
+                </div>
+                                <!-- วันเกิด -->
+                                <div class="form-group row">
+                    <label for="txtcatxtbirthd"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">วันเกิด : </label>
+                    <div class="col-sm-5">
+                        <input type="date" name="txtbirth" class="form-control form-control-sm" id="txtbirth" value="<?php echo $result['tc_date'] ?>" required></div>
+                </div>
+                                <!-- อีเมล์ -->
+                                <div class="form-group row">
+                    <label for="txtemail"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">อีเมล์ : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtemail" class="form-control form-control-sm" id="txtemail" value="<?php echo $result['tc_email'] ?>" required></div>
+                </div>
+     
+            <div class="row">
+                <button class="btn btn-sm btn-success mx-auto col-2" >แก้ไข</button>
+            </div>
         </div>
-
+        </form>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
