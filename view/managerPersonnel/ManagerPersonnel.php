@@ -51,6 +51,9 @@ $query = $conn->query($sql);
                 <li>
                     <a href="../managerPersonnel/managerPersonnel.php">จัดการบุคลากร</a>
                 </li>
+                <li>
+                    <a href="../managerSubject/ManagerSubject.php">จัดการรายวิชา</a>
+                </li>
             <?php } else{?>
                 <li>
                     <a href="">ข้อมูลส่วนตัว</a>
@@ -58,6 +61,7 @@ $query = $conn->query($sql);
                 <li>
                     <a href="../grade/GradeMain.php">จัดการผลการเรียน</a>
                 </li>
+
             <?php } ?>
             </ul>
             
@@ -89,7 +93,7 @@ $query = $conn->query($sql);
                     </button>
                 </div>
             </nav>
-            <h3>รายชื่อ เจ้าหน้าที่ อาสาสมาคมกู้ภัยลำปาง</h3>
+            <h3>จัดการบุคลากร</h3>
 <button class="btn btn-success btn-sm m-1"><a href="./AddPersonal.php"> + เพิ่มบุคลากร</a></button> 
 <input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
 <button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 

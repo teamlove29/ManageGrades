@@ -1,20 +1,12 @@
 <?php
 session_start();
-include('../../model/connect.php');
-if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
-    $query = $conn->query($sql);
-    $result = $query -> FETCH_ASSOC();
-    $name = $result['tc_name'];
-    $code = $result['tc_code'];
-    $date = $result['tc_date'];
-}
-else{
-    $name = 'Admin';
-}
-
+include_once('../../model/connect.php');error_reporting(0);
+// $_SESSION['Std_id'] = "";
+// $id = $_GET['Std_id'];
+// $_SESSION['Std_edit'] = $id;
+$sql = "SELECT * FROM subject_tb";
+$query = $conn->query($sql);
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -23,7 +15,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>หน้าหลัก</title>
+    <title>จัดการรายวิชา</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -39,7 +31,6 @@ else{
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
-
 <body class="setfont">
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -50,29 +41,27 @@ else{
             <img class="circle-img mt-4"
                 src="http://americanmuslimconsumer.com/wp-content/uploads/2013/09/blank-user.jpg"
                 alt="">
-            <p class="text-center text-light mt-3 setfont"><?php echo $name; ?> </p>
+            <p class="text-center text-light mt-3 setfont"><?php echo $_SESSION['name']; ?> </p>
 
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>
                 <li>
-                    <a href="">ข้อมูลส่วนตัว</a>
+                    <a href="../main/Main.php">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="../managerPersonnel/ManagerPersonnel.php">จัดการบุคลากร</a>
+                    <a href="../managerPersonnel/managerPersonnel.php">จัดการบุคลากร</a>
                 </li>
                 <li>
-                    <a href="../managerSubject/ManagerSubject.php">จัดการรายวิชา</a>
-                </li>
-                <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการสอน</a>
+                    <a href=" ">จัดการรายวิชา</a>
                 </li>
             <?php } else{?>
                 <li>
                     <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="#">จัดการผลการเรียน</a>
+                    <a href="../grade/GradeMain.php">จัดการผลการเรียน</a>
                 </li>
+
             <?php } ?>
             </ul>
             
@@ -104,24 +93,47 @@ else{
                     </button>
                 </div>
             </nav>
-            <h3>ข้อมูลส่วนตัว</h3>
-            <hr>
-            <?php if($_SESSION['Type_id'] == 1){ ?>
-            <b>ชื่อ - นามสกุล : </b>
-            <label for="idcard"><?php echo $name; ?> </label> <br>
-            <?php  } else {?>
-            <b>ชื่อ - นามสกุล : </b>
-            <label for="idcard"><?php echo $name; ?> </label> <br>
+            <h3>จัดการรายวิชา</h3>
+<button class="btn btn-success btn-sm m-1"><a href="./AddSubject.php"> + เพิ่มรายวิชา</a></button> 
+<input type="text" placeholder="รหัสวิชา - ชื่อวิชา">
+<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
 
-            <b>รหัสตำแหน่ง : </b>
-            <label for="idcard"><?php echo $code; ?> </label> <br>
+                        <!-- alert  -->
+                        <?php if($_GET['susccess'] == 1){ ?>
+    <div class="alert alert-success" role="alert">
+  สำเร็จ
+</div>
 
-            <b>วันเกิด : </b>
-            <label for="idcard"><?php echo $date; ?> </label> <br>
+<?php }else if($_GET['susccess'] == 2) { ?>
+    <div class="alert alert-danger" role="alert">
+  มีบางอย่างผิดพลาด ลองอีกครั้ง
+</div> <?php } ?>
+<!-- end alert  -->
 
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">รหัสวิชา</th>
+                        <th scope="col">รายวิชา</th>
+                        <th scope="col">หน่วยกิต</th>
+                        <th scope="col">แก้ไข</th>
+                        <th scope="col">ลบ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
-            <a class="btn btn-sm btn-primary mt-3" href="../editPass/EditPass.php">เปลี่ยนรหัสผ่าน</a>
-            <?php }?>
+                        <tbody>
+                            <tr>
+                            <?php while($result = $query->fetch_assoc()){ ?>
+                              <td><?php echo $result['Sub_code']; ?></td>
+                              <td><?php echo $result['Sub_Name']; ?></td> 
+                              <td><?php echo $result['Sub_Credit']; ?></td>
+                              <td><a class="btn btn-dark btn-sm" href="./EditSubject.php?SJ_ID=<?php echo $result['Sub_id']; ?>">แก้ไข</a></td>
+                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('คุณแน่ใจแล้วใช่ไหม?') == true){window.location='../../control/subject/DelSubject.php?id=<?php echo $result["Sub_id"];?>';}">ลบ</a></td>
+                            </tr>
+                            <?php } ?>
+                          </tbody>
+                  </table>
 
 
         </div>

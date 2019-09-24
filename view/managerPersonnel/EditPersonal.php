@@ -2,9 +2,9 @@
 session_start();
 include_once('../../model/connect.php');
 error_reporting(0);
-$id = $_GET['tcID'];
+$_SESSION['editID'] = $_GET['tcID'];
 
-$sql = "SELECT * FROM teacher_tb WHERE tc_id = '".$id."'";
+$sql = "SELECT * FROM teacher_tb WHERE tc_id = '".$_SESSION['editID']."'";
 $query = $conn->query($sql);
 $result = $query->FETCH_ASSOC();
 ?>
@@ -91,7 +91,7 @@ $result = $query->FETCH_ASSOC();
             <a class="btn btn-sm btn-secondary m-1" href="./ManagerPersonnel.php"> < กลับหน้าเดิม</a>
             <h3 class="text-center">เพิ่มบุคลากร</h3>
             <hr>
-            <form id="myform" name='myform' method="POST" action="../../control/personnal/AddPersonal.php">
+            <form id="myform" name='myform' method="POST" action="../../control/personnal/EditPersonal.php">
                 <!-- รหัสบุคลากร -->
                 <div class="form-group row">
         
