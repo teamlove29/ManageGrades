@@ -12,9 +12,7 @@ if($_SESSION['Type_id'] == 2){
 else{
     $name = 'Admin';
 }
-
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -23,7 +21,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>หน้าหลัก</title>
+    <title>จัดการนักศึกษา</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -39,7 +37,6 @@ else{
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
-
 <body class="setfont">
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -107,26 +104,48 @@ else{
                     </button>
                 </div>
             </nav>
-            <h3>ข้อมูลส่วนตัว</h3>
-            <hr>
-            <?php if($_SESSION['Type_id'] == 1){ ?>
-            <b>ชื่อ - นามสกุล : </b>
-            <label for="idcard"><?php echo $name; ?> </label> <br>
-            <?php  } else {?>
-            <b>ชื่อ - นามสกุล : </b>
-            <label for="idcard"><?php echo $name; ?> </label> <br>
+            <h3>จัดการนักศึกษา</h3>
+<button class="btn btn-success btn-sm m-1"><a href="./AddStudent.php"> + เพิ่มนักศึกษา</a></button> 
+<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
+<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
 
-            <b>รหัสตำแหน่ง : </b>
-            <label for="idcard"><?php echo $code; ?> </label> <br>
+<?php if($_GET['susccess'] == 1){ ?>
+    <div class="alert alert-success" role="alert">
+  สำเร็จ
+</div>
 
-            <b>วันเกิด : </b>
-            <label for="idcard"><?php echo $date; ?> </label> <br>
-
-
-            <a class="btn btn-sm btn-primary mt-3" href="../editPass/EditPass.php">เปลี่ยนรหัสผ่าน</a>
-            <?php }?>
+<?php }else if($_GET['susccess'] == 2) { ?>
+    <div class="alert alert-danger" role="alert">
+  มีบางอย่างผิดพลาด กรุณาตรวจสอบ
+</div> <?php } ?>
 
 
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">รหัสนักศึกษา</th>
+                        <th scope="col">ชื่อ - นามสกุล</th>
+                        <th scope="col">แก้ไข</th>
+                        <th scope="col">ลบ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                        <tbody>
+                            <tr>
+                            <?php
+                            $sqlstd ="SELECT * FROM `student_tb`";
+                            $querystd = $conn->query($sqlstd);
+                            while($resultstd = $querystd->fetch_assoc()){ ?>
+                              <td><?php echo $resultstd['std_code']; ?></td>
+                              <td><?php echo $resultstd['std_name']; ?></td>
+       
+                              <td><a class="btn btn-dark btn-sm" href="./EditStudent.php?Std_Code=<?php echo $resultstd['std_id'];?>">แก้ไข</a></td>
+                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('Confirm Delete?') == true){window.location='../../control/student/DelStudent.php?Std_Code=<?php echo $resultstd["std_id"];?>';}">ลบ</a></td>
+                            </tr>
+                            <?php } ?>
+                          </tbody>
+                  </table>
         </div>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->

@@ -1,20 +1,14 @@
 <?php
 session_start();
-include('../../model/connect.php');
-if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
-    $query = $conn->query($sql);
-    $result = $query -> FETCH_ASSOC();
-    $name = $result['tc_name'];
-    $code = $result['tc_code'];
-    $date = $result['tc_date'];
-}
-else{
-    $name = 'Admin';
-}
-
+include_once('../../model/connect.php');error_reporting(0);
+// ู$id = "";
+// $_SESSION['Teach_edit'] = "";
+// $id = $_GET['Teach_id'];
+// $_SESSION['Teach_edit'] = $id;
+// $sql = "SELECT * FROM teacher_tb WHERE Teach_id = '$id'";
+// $query = $conn->query($sql);
+// $result = $query->fetch_assoc()
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -23,7 +17,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>หน้าหลัก</title>
+    <title>เพิ่มนักศึกษา</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -39,7 +33,6 @@ else{
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
-
 <body class="setfont">
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -50,7 +43,7 @@ else{
             <img class="circle-img mt-4"
                 src="http://americanmuslimconsumer.com/wp-content/uploads/2013/09/blank-user.jpg"
                 alt="">
-            <p class="text-center text-light mt-3 setfont"><?php echo $name; ?> </p>
+            <p class="text-center text-light mt-3 setfont"><?php echo $_SESSION['name']; ?> </p>
 
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>
@@ -58,23 +51,14 @@ else{
                     <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="../managerPersonnel/ManagerPersonnel.php">จัดการบุคลากร</a>
-                </li>
-                <li>
-                    <a href="../managerSubject/ManagerSubject.php">จัดการรายวิชา</a>
-                </li>
-                <li>
-                    <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
-                </li>
-                <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการเรียน</a>
+                    <a href="../managerPersonnel/managerPersonnel.php">จัดการบุคลากร</a>
                 </li>
             <?php } else{?>
                 <li>
                     <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="../setScore/SubjectList.php">จัดการผลการเรียน</a>
+                    <a href="../grade/GradeMain.php">จัดการผลการเรียน</a>
                 </li>
             <?php } ?>
             </ul>
@@ -92,8 +76,7 @@ else{
 
         <!-- Page Content  -->
         <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -107,28 +90,33 @@ else{
                     </button>
                 </div>
             </nav>
-            <h3>ข้อมูลส่วนตัว</h3>
+            <a class="btn btn-sm btn-secondary m-1" href="./ManagerPersonnel.php"> < กลับหน้าเดิม</a>
+            <h3 class="text-center">เพิ่มนักศึกษา</h3>
             <hr>
-            <?php if($_SESSION['Type_id'] == 1){ ?>
-            <b>ชื่อ - นามสกุล : </b>
-            <label for="idcard"><?php echo $name; ?> </label> <br>
-            <?php  } else {?>
-            <b>ชื่อ - นามสกุล : </b>
-            <label for="idcard"><?php echo $name; ?> </label> <br>
+            <form id="myform" name='myform' method="POST" action="../../control/student/AddStudent.php">
+                <!-- รหัสนักศึกษา -->
+                <div class="form-group row">
+        
+                    <label for="txtcode"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสนักศึกษา : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" required></div>
+                </div>
+               
+                <!-- ชื่อ -->
+                <div class="form-group row">
+                    <label for="txtname"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อ : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" required></div>
+                    </div>
 
-            <b>รหัสตำแหน่ง : </b>
-            <label for="idcard"><?php echo $code; ?> </label> <br>
-
-            <b>วันเกิด : </b>
-            <label for="idcard"><?php echo $date; ?> </label> <br>
-
-
-            <a class="btn btn-sm btn-primary mt-3" href="../editPass/EditPass.php">เปลี่ยนรหัสผ่าน</a>
-            <?php }?>
-
-
+     
+            <div class="row">
+                <button class="btn btn-sm btn-primary mx-auto col-2" >บันทึก</button>
+            </div>
         </div>
-
+        </form>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

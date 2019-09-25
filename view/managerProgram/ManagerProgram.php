@@ -3,7 +3,18 @@ session_start();
 include_once('../../model/connect.php');
 error_reporting(0);
 
+$_SESSION['EditProgream'] = $_GET['CosId'];
 
+$sql = "SELECT DISTINCT course_tb.Cos_id,course_tb.Cos_term,course_tb.Sub_Code, subject_tb.Sub_Name, subject_tb.Sub_Credit,
+				course_tb.Teach_code,teacher_tb.tc_name
+                FROM `course_tb` 
+                INNER JOIN subject_tb
+                ON course_tb.Sub_Code = subject_tb.Sub_code
+                INNER JOIN teacher_tb
+                ON course_tb.Teach_code = teacher_tb.tc_code
+                WHERE Cos_id = '".$_GET['CosId']."'";
+$query = $conn->query($sql);
+$result = $query->FETCH_ASSOC();
 ?>
 
 
@@ -101,10 +112,10 @@ error_reporting(0);
             <h3>จัดการวิชาแผนการเรียน</h3> 
 
 
-<form action="#" method="POST">
+<form action="../../control/program/AddProgram.php" method="POST">
    
                       
-</form>
+
 
 <?php if($_GET['susccess'] == 1){ ?>
     <div class="alert alert-success" role="alert">
@@ -116,7 +127,7 @@ error_reporting(0);
   มีบางอย่างผิดพลาด กรุณาตรวจสอบ
 </div> <?php } ?>
 
-<form>
+
 
   <!-- เลือกวิชา  -->
   <div class="form-group">
@@ -124,7 +135,11 @@ error_reporting(0);
                         class="col-sm-4 col-form-label col-form-label-sm font-weight-bold">เลือกวิชา :</label>
                     <div class="col-sm-5">
                     <select name="subCode" class="form-control col-form-label col-form-label-sm" id="inputGroupSelect01" required>
-<option>เลือกรายวิชา</option>
+<option <?php if($_GET['CosId']){ ?>
+    value="<?php echo $result['Sub_Code'] ?>"
+<?php  } ?> selected><?php if($_GET['CosId']){ echo $result['Sub_Code']." ".$result['Sub_Name']." [ค่าเดิม]";
+}else { echo "เลือกวิชา";}?> 
+</option>
 
 <?php  
 $sqlSubject = "SELECT * FROM `subject_tb`";
@@ -145,70 +160,95 @@ while($rowSubject = $querySubject->fetch_assoc()){ ?>
                     <div class="col-sm-5">
                     <select name="TeacName" class="form-control col-form-label col-form-label-sm" id="inputGroupSelect01" required>
                     <option <?php if($_GET['CosId']){ ?>
-    value="<?php echo $resultEdit['Teach_code'] ?>"
-<?php  } ?> selected><?php if($_GET['CosId']){ echo $resultEdit['Teach_code']." ".$resultEdit['Teach_Pname']." ".$resultEdit['Teach_Fname']." ".$resultEdit['Teach_Lname']." [ค่าเดิม]";
+    value="<?php echo $result['Teach_code'] ?>"
+<?php  } ?> selected><?php if($_GET['CosId']){ echo $result['tc_code']." ".$result['tc_name']." [ค่าเดิม]";
 }else { echo "เลือกอาจารย์";}?> 
 </option>
+
 <?php  
 $sqlTeacher = "SELECT * FROM `teacher_tb`";
 $queryTeacher = $conn->query($sqlTeacher);
 while($rowTeacher = $queryTeacher->fetch_assoc()){ ?>
-<option value="<?php echo $rowTeacher['Teach_code'] ?>" ><?php echo $rowTeacher['Teach_code'] ." ". $rowTeacher['Teach_Pname']." ".
-$rowTeacher['Teach_Fname'] ." ". $rowTeacher['Teach_Lname']?></option>
+<option value="<?php echo $rowTeacher['tc_code'] ?>" ><?php echo $rowTeacher['tc_code'] ." ". $rowTeacher['tc_name'];?></option>
 <?php } ?>
       </select>
                     </div>
                 </div>
 
-                                     <!-- คาบเรียน  -->
+                
+                                     <!-- ภาคเรียน  -->
                                      <div class="form-group">
-                    <label for="cosTime"
-                        class="col-sm-4 col-form-label col-form-label-sm font-weight-bold">คาบเรียน :</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control form-control-sm" id="cosTime" name="cosTime" 
-                        <?php if($_GET['CosId']){ ?>value="<?php echo $resultEdit['Cos_Time']?>" <?php }
-                        else{ ?> <?php } ?> required>
-                        <small>เช่น จ(1-4), อ(6-10)</small>
-                    </div>
-                </div>
-                                                     <!-- ห้องเรียน  -->
-                                                     <div class="form-group">
-                    <label for="cosRoom"
-                        class="col-sm-4 col-form-label col-form-label-sm font-weight-bold">ห้องเรียน :</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control form-control-sm" id="cosRoom" name="cosRoom" 
-                        <?php if($_GET['CosId']){ ?>value="<?php echo $resultEdit['Cos_Room']?>" <?php }
-                        else{ ?> <?php } ?> required>
-                        
-                    </div>
-                </div>
-
-                <div class="form-group">
-                <select name="cosTerm" class="col-sm-3 col-form-label col-form-label-sm ml-3" id="inputGroupSelect01" required>
-                <option <?php if($_GET['CosId']){ ?>
-    value="<?php echo $resultEdit['Cos_term'] ?>"
-<?php  } ?> selected><?php if($_GET['CosId']){ echo $resultEdit['Cos_term']." [ค่าเดิม]";
-}else { echo "เลือกภาคเรียน";}?> 
+                    <label for="term"
+                        class="col-sm-4 col-form-label col-form-label-sm font-weight-bold">ภาคเรียน :</label>
+                    <div class="ml-1 col-sm-8 row">
+                    <select name="term" id="term" class="form-control col-form-label col-form-label-sm col-3 mr-2" required>
+                    <option <?php if($_GET['CosId']){ ?>
+    value="<?php echo substr($result['Cos_term'],-7,1); ?>"
+<?php  } ?> selected><?php if($_GET['CosId']){ echo substr($result['Cos_term'],-7,1)." [ค่าเดิม]";
+}else { echo "ภาคเรียน";}?> 
 </option>
-        <option value="1/2560">1/2560</option>
-        <option value="2/2560">2/2560</option>
-        <option value="1/2561">1/2561</option>
-        <option value="2/2561">2/2561</option>
-        <option value="1/2562">1/2562</option>
-        <option value="2/2562">2/2562</option>
-        <option value="1/2563">1/2563</option>
-        <option value="2/2563">2/2563</option>
-      </select>
-      
-      <?php if($_GET['CosId']){ 
+                    <option>1</option>
+                    <option>2</option>
+                    </select>
+                       
+                    <input name="year" id="year" class="form-control col-form-label col-form-label-sm col-5 mr-2" placeholder="ปีการศึกษา" 
+                    value="<?php if($_GET['CosId']){ echo substr($result['Cos_term'],-4,4);}else { echo "";}?>" required>
+
+                        <!-- ปุ่ม -->
+                        <?php if($_GET['CosId']){ 
           $_SESSION['EditProgream'] = $_GET['CosId'];?>
-<input class="btn btn-sm" type="submit" value="แก้ไขวิชา" name="Edit">
-<a class="btn btn-danger btn-sm" href="./ref.php">ยกเลิก</a>
+<input class="my-auto btn btn-sm mr-2" type="submit" value="แก้ไขวิชา" name="Edit">
+<a class="my-auto btn btn-danger btn-sm" href="../../control/program/ref.php">ยกเลิก</a>
       <?php }else{?>
-        <input class="btn btn-sm btn-success" type="submit" value="เพิ่มวิชา" name="add">
+        <input class="my-auto btn btn-sm btn-success" type="submit" value="เพิ่มวิชา" name="add">
         <?php }?>
-</div>     
-      </form>
+        <!-- End ปุ่ม -->
+                    </div>
+                </div>
+                </form>
+<hr class="mt-5">
+<div class="form-group row">
+<div class="col-3 text-right my-auto">
+<label for="search_text">ค้นหา</label>
+</div>
+<input name="search_text" id="search_text" type="text" class="form-control col-form-label col-form-label-sm col-6 mr-2" 
+        placeholder="ภาคเรียน/ปีการศึกษา - รหัสวิชา - ชื่อรายวิชา - อาจารย์ผู้สอน"> 
+        
+</div>
+
+
+   
+
+      <div id="result"></div>
+
+      <!-- <table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">รหัสวิชา</th>
+      <th scope="col">รายวิชา</th>
+      <th scope="col">หน่วยกิต</th>
+      <th scope="col">อาจารย์ผู้สอน</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th colspan="4">ปีการศึกษา.... </th>
+    </tr>
+    <tr>
+      <td>9011103</td>
+      <td>ภาษาอังกฤษเพื่อทักษะการเรียน</td>
+      <td>3</td>
+      <td>ญาดา จุ๊กกู๊ว</td>
+    </tr>
+    <tr>
+      <td>9011202</td>
+      <td>สุนทรียภาพของชีวิต</td>
+      <td>3</td>
+      <td>วรวิทย์ หน้าจิ๋ม</td>
+    </tr>
+  </tbody>
+</table> -->
+
 
 
         </div>
@@ -225,7 +265,8 @@ $rowTeacher['Teach_Fname'] ." ". $rowTeacher['Teach_Lname']?></option>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
             integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
-
+            <!-- ajax  -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#sidebarCollapse').on('click', function () {
@@ -233,6 +274,37 @@ $rowTeacher['Teach_Fname'] ." ". $rowTeacher['Teach_Lname']?></option>
                 });
             });
         </script>
+
+<script>
+$(document).ready(function(){
+	load_data();
+	function load_data(query)
+	{
+		$.ajax({
+			url:"../../model/fetchsub.php",
+			method:"post",
+			data:{query:query},
+			success:function(data)
+			{
+				$('#result').html(data);
+			}
+		});
+	}
+	
+	$('#search_text').keyup(function(){
+		var search = $(this).val();
+		if(search != '')
+		{
+			load_data(search);
+		}
+		else
+		{
+			load_data();			
+		}
+	});
+});
+</script>
+
 </body>
 
 </html>

@@ -23,7 +23,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>หน้าหลัก</title>
+    <title>ตั้งค่าคะแนน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -64,17 +64,14 @@ else{
                     <a href="../managerSubject/ManagerSubject.php">จัดการรายวิชา</a>
                 </li>
                 <li>
-                    <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
-                </li>
-                <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการเรียน</a>
+                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการสอน</a>
                 </li>
             <?php } else{?>
                 <li>
                     <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="../setScore/SubjectList.php">จัดการผลการเรียน</a>
+                    <a href="../setScore/SetScore.php">จัดการผลการเรียน</a>
                 </li>
             <?php } ?>
             </ul>
@@ -107,7 +104,7 @@ else{
                     </button>
                 </div>
             </nav>
-            <h3>ข้อมูลส่วนตัว</h3>
+            <h3>ตั้งค่าคะแนน</h3>
             <hr>
             <?php if($_SESSION['Type_id'] == 1){ ?>
             <b>ชื่อ - นามสกุล : </b>
