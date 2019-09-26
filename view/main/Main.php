@@ -67,7 +67,10 @@ else{
                     <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
                 </li>
                 <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการเรียน</a>
+                    <a href="../managerProgram/Program.php">จัดการแผนการเรียน</a>
+                </li>
+                <li>
+                    <a href="../register/Register.php">ลงทะเบียน</a>
                 </li>
             <?php } else{?>
                 <li>

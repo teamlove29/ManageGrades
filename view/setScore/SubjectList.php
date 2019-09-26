@@ -117,8 +117,24 @@ else{
     </div>
 </nav>
 <h3>จักการผลการเรียน</h3>
+
+<div class="card mt-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">เกณฑ์คะแนน [ค่าตั้งต้น]</h5>
+    <h6>A > 80</h6>
+    <h6>B+ > 75</h6>
+    <h6>B > 70</h6>
+    <h6>C+ > 65</h6>
+    <h6>C > 60</h6>
+    <h6>D+ > 55</h6>
+    <h6>D > 50</h6>
+    <h6>F : ไม่ผ่าน</h6>
+    <a class="btn btn-primary btn-sm mt-2" href="#">ตั้งเกณฑ์คะแนน</a>
+  </div>
+</div>
+
 <form action="" method="GET">
-<div class="row">
+<div class="row mt-3">
 <select class="form-control col-form-label col-form-label-sm col-4 ml-3" name="txtkey" id="">
 <option value="" >ภาคเรียน/ปีการศึกษา</option>
 <?php 
@@ -188,7 +204,7 @@ for($i=0;$i<5;$i++) {
                   <td class="text-center"><?php echo $row['Sub_Code']; ?></td>
                   <td><?php echo $row['Sub_Name']; ?></td> 
 
-                  <td class="text-center"><a class="btn btn-dark btn-sm" href="../../control/grade/ManagerGrade.php?SJ_ID=<?php echo $row['Sub_id']; ?>">จัดการ</a></td>
+                  <td class="text-center"><a class="btn btn-dark btn-sm" href="./ManagerGrade.php?SJ_ID=<?php echo $row['Sub_Code']; ?>">จัดการ</a></td>
                 </tr>
                 <?php } ?>
               </tbody>

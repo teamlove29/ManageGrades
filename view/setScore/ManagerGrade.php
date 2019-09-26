@@ -11,14 +11,15 @@ include('../../model/connect.php');
     $name = $result['tc_name'];
     $code = $result['tc_code'];
     $date = $result['tc_date'];
+$_SESSION['SJ_ID'] = $_GET['SJ_ID'];
+
+$sqlsub ="SELECT * FROM `subject_tb` 
+WHERE Sub_code = '".$_SESSION['SJ_ID']."'";
+$querysub = $conn->query($sqlsub);
+$resultsub = $querysub -> FETCH_ASSOC();
+
 
 error_reporting(0);
-$_SESSION['STD_ID'] = $_GET['STD_ID'];
-
-$sqlcheck = "SELECT * FROM `student_tb` 
-             WHERE `std_code` ='".$_SESSION['STD_ID']."'";
-$querycheck = $conn->query($sqlcheck);
-$resultcheck = $querycheck->FETCH_ASSOC();
 
 ?>
 
@@ -30,7 +31,7 @@ $resultcheck = $querycheck->FETCH_ASSOC();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ใส่คะแนน</title>
+    <title>จักการผลการเรียน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -111,17 +112,16 @@ $resultcheck = $querycheck->FETCH_ASSOC();
         </button>
     </div>
 </nav>
-<a class="btn btn-sm btn-secondary mb-2" href="./ManagerGrade.php?SJ_ID=<?php echo $_SESSION['SJ_ID']; ?> "> < กลับหน้าเดิม</a>
-<h3>ใส่คะแนน</h3>
+<a class="btn btn-sm btn-secondary mb-2" href="../../view/setScore/SubjectList.php"> < กลับหน้าเดิม</a>
+<h3>จักการผลการเรียน วิชา : <?php echo $resultsub['Sub_Name'] ?></h3>
 
 
-<label for="txtscore" class="mt-3"><?php echo $resultcheck['std_code']." ".$resultcheck['std_name'] ?></label>
-<form action="../../control/grade/Addscore.php" method="POST">
 
-<div class="row ">
-<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtscore" id="" placeholder="คะแนน" 
-<?php if($_GET['socre']){ ?> value="<?php echo $_GET['socre']; ?>" <?php } ?> required>
-<button class="btn btn-success btn-sm m-1 col-1">บันทึก</button> 
+<form action="" method="GET">
+
+<div class="row mt-3">
+<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtkey" id="" placeholder="รหัส - ชื่อ/นามสกุล">
+<button class="btn btn-secondary btn-sm m-1 col-1">ค้นหา</button> 
 </div>
 
 
@@ -130,18 +130,60 @@ $resultcheck = $querycheck->FETCH_ASSOC();
 
 </form>
             <!-- alert  -->
-            <?php if($_GET['susccess'] == 1){ ?>
-<div class="alert alert-success" role="alert">
+            <?php if($_GET['success'] == 1){ ?>
+<div class="alert alert-success mt-2" role="alert">
 สำเร็จ
 </div>
 
-<?php }else if($_GET['susccess'] == 2) { ?>
+<?php }else if($_GET['success'] == 2) { ?>
 <div class="alert alert-danger" role="alert">
 มีบางอย่างผิดพลาด ลองอีกครั้ง
 </div> <?php } ?>
 <!-- end alert  -->
 
+<table class="table table-bordered mt-2 mx-auto">
+    <thead>
+    
+    
+    
+        <tr>
+            <th class="text-center" scope="col">รหัสนักศึกษา</th>
+            <th scope="col">ชื่อ - นามสกุล</th>
+            <th class="text-center" scope="col">คะแนน</th>
+            <th class="text-center" scope="col">เกรด</th>
+            <th class="text-center" scope="col">จัดการ</th>
+          </tr>
+    
+        </thead>
+        <tbody>
+        <?php 
+        $sqlshow = "SELECT * FROM register_tb
+                INNER JOIN course_tb
+                ON register_tb.cos_code = course_tb.Cos_code
+                INNER JOIN student_tb
+                ON register_tb.std_code = student_tb.std_code
+                WHERE course_tb.Sub_Code = '".$_GET['SJ_ID']."'
+                ORDER BY register_tb.std_code";
+        $queryshow = $conn->query($sqlshow);
+        while($row = $queryshow->FETCH_ASSOC()) {
+            $sqlgrade = "   SELECT * FROM `grade_tb` 
+                            WHERE `std_code` ='".$row['std_code']."' 
+                            AND `sub_code` = '".$row['Sub_Code']."'";
+            $querygrade = $conn->query($sqlgrade);
+            $resultgrade = $querygrade->FETCH_ASSOC();
+            ?>
+<tr>
+<td><?php echo $row['std_code']?></td>
+<td><?php echo $row['std_name']?></td>
+<td><?php echo $resultgrade['GPA']?></td>
+<td><?php echo $resultgrade['grade_font']?></td>
+<td class="text-center"><a class="btn btn-dark btn-sm" href="./SetScore.php?STD_ID=<?php echo $row['std_code']; ?>&socre=<?php echo $resultgrade['GPA']; ?>">จัดการ</a></td>
+</tr>
+<?php }?>
+            <tbody>
 
+              </tbody>
+      </table>
 
 
 </div>

@@ -1,18 +1,13 @@
 <?php
 session_start();
-include('../../model/connect.php');
-if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
-    $query = $conn->query($sql);
-    $result = $query -> FETCH_ASSOC();
-    $name = $result['tc_name'];
-    $code = $result['tc_code'];
-    $date = $result['tc_date'];
-}
-else{
-    $name = 'Admin';
-}
+include_once('../../model/connect.php');
+$sql = "SELECT * FROM `student_tb` ";
+$query = $conn->query($sql);
 error_reporting(0);
+$sqlCourseName = "SELECT * FROM `coursename_tb` ";
+$queryCourseName = $conn->query($sqlCourseName);
+// $resultCourseName = $queryCourseName->FETCH_ASSOC();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +17,7 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จัดการนักศึกษา</title>
+    <title>จัดการลงทะเบียน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -38,6 +33,7 @@ error_reporting(0);
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
+
 <body class="setfont">
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -67,6 +63,9 @@ error_reporting(0);
                 <li>
                     <a href="../managerProgram/ManagerProgram.php">จัดการแผนการเรียน</a>
                 </li>
+                <li>
+                    <a href="">ลงทะเบียน</a>
+                </li>
             <?php } else{?>
                 <li>
                     <a href="">ข้อมูลส่วนตัว</a>
@@ -88,6 +87,7 @@ error_reporting(0);
             </ul>
         </nav>
 
+
         <!-- Page Content  -->
         <div id="content">
 
@@ -105,10 +105,47 @@ error_reporting(0);
                     </button>
                 </div>
             </nav>
-            <h3>จัดการนักศึกษา</h3>
-<button class="btn btn-success btn-sm m-1"><a href="./AddStudent.php"> + เพิ่มนักศึกษา</a></button> 
-<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
-<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
+            <h3>จัดการลงทะเบียน</h3>
+            <form class="form-inline">
+            <div class="form-group mr-2 mb-2">
+                <label for="inputPassword2" class="sr-only">Password</label>
+                <input type="password" class="form-control form-control-sm" id="inputPassword2" placeholder="รหัส หรือ หมู่เรียน">
+              </div>
+              <button type="submit" class="btn btn-secondary btn-sm mb-2">ค้นหา</button>
+            </form>
+
+
+            <script language="JavaScript">
+	function ClickCheckAll(vol)
+	{
+		for(var i=2;i<=document.frmMain.hdnCount.value;i++)
+		{
+            console.log(i);
+            
+			if(vol.checked == true)
+			{
+				eval("document.frmMain.Chk"+i+".checked=true");
+			}
+			else
+			{
+				eval("document.frmMain.Chk"+i+".checked=false");
+			}
+		}
+	}
+</script>
+
+
+<form action="../../control/register/AddEditRegister.php" method="post" name="frmMain" id="frmMain">
+
+<div class="form-group">
+        <select name="CosCode" class="form-control-sm" required>
+                <option value="">เลือกแผนการเรียน</option>
+<?php while($rowCsName = $queryCourseName->FETCH_ASSOC()){ ?>
+                <option value="<?php echo $rowCsName['Cos_code'] ?>"><?php echo $rowCsName['Cos_name'] ?></option>
+<?php } ?>
+              </select>
+              <button class="btn btn-sm btn-success">+ เพิ่ม/แก้ไข</button>
+</div>
 
 <?php if($_GET['susccess'] == 1){ ?>
     <div class="alert alert-success" role="alert">
@@ -121,32 +158,42 @@ error_reporting(0);
 </div> <?php } ?>
 
 
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">รหัสนักศึกษา</th>
+            <table class="table table-bordered mt-3 ">
+                    <thead>
+                      <tr>
+                      <td width="34"><div align="center">
+        <input name="CheckAll" type="checkbox" id="CheckAll" onClick="ClickCheckAll(this);">
+      </div></td>
+                        <th scope="col">รหัส</th>
                         <th scope="col">ชื่อ - นามสกุล</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ลบ</th>
+                        <th scope="col">แผนการเรียน</th>
                       </tr>
                     </thead>
                     <tbody>
-
-                        <tbody>
-                            <tr>
-                            <?php
-                            $sqlstd ="SELECT * FROM `student_tb`";
-                            $querystd = $conn->query($sqlstd);
-                            while($resultstd = $querystd->fetch_assoc()){ ?>
-                              <td><?php echo $resultstd['std_code']; ?></td>
-                              <td><?php echo $resultstd['std_name']; ?></td>
-       
-                              <td><a class="btn btn-dark btn-sm" href="./EditStudent.php?Std_Code=<?php echo $resultstd['std_id'];?>">แก้ไข</a></td>
-                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('Confirm Delete?') == true){window.location='../../control/student/DelStudent.php?Std_Code=<?php echo $resultstd["std_id"];?>';}">ลบ</a></td>
-                            </tr>
-                            <?php } ?>
-                          </tbody>
+                        <?php $i = 1; while($row = $query->FETCH_ASSOC()) {
+                             $i = $i+1; 
+                             $sqlNameCourse = "SELECT * FROM `register_tb`
+                    INNER JOIN coursename_tb
+                    ON register_tb.cos_code = coursename_tb.Cos_code
+                    WHERE `std_code` = '".$row['std_code']."' ";
+                    $queryNameCourse = $conn->query($sqlNameCourse);
+                    $resultNameCourse = $queryNameCourse->FETCH_ASSOC();
+                             ?>
+                        <tr>
+                        <td><div align="center">
+                            <input name="Chk<?php echo $i; ?>" type="checkbox" id="Chk1" value="<?php echo $row['std_code']; ?>">
+                        </div></td>
+                        <td scope="row"><?php echo $row['std_code'] ?></td>
+                        <td><?php echo $row['std_name']?></td>
+                        <td><?php echo $resultNameCourse['Cos_name'] ?></td>
+                      </tr>
+                      
+                        <?php  } ?>
+                    </tbody>
                   </table>
+                  <input type="hidden" name="hdnCount" value="<?php echo $i ?>">
+                  </form>
+
         </div>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->

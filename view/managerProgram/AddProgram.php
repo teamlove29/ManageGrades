@@ -1,30 +1,10 @@
 <?php
 session_start();
-include('../../model/connect.php');
-
-    $sql ="SELECT * FROM `teacher_tb` 
-    INNER JOIN course_tb
-    ON teacher_tb.tc_code = course_tb.Teach_code
-    WHERE teacher_tb.tc_code = '".$_SESSION['id']."'";
-    $query = $conn->query($sql);
-    $result = $query -> FETCH_ASSOC();
-    $name = $result['tc_name'];
-    $code = $result['tc_code'];
-    $date = $result['tc_date'];
-
+include_once('../../model/connect.php');
 error_reporting(0);
-$datePresent = date('Y') + 543;
-$MoPresent = date('m') ;
-$dateFuture = $datePresent + 5;
-$datePast = $datePresent - 5;
-if($MoPresent >= 6 AND $MoPresent <= 12){
-    $txtTerm = "1/".$datePresent;
-}
-else{
-    $txtTerm = "2/".$datePresent;
-}
-// echo "2/".$datePresent;$code = $_GET['txtkey'];
-
+$sql =  "SELECT * FROM `coursename_tb` WHERE Cos_code = '".$_GET['CosCode']."'";
+$query = $conn->query($sql);
+$result = $query->FETCH_ASSOC();
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +15,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จักการผลการเรียน</title>
+    <title>เพิ่มแผนการเรียน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -76,14 +56,17 @@ else{
                     <a href="../managerSubject/ManagerSubject.php">จัดการรายวิชา</a>
                 </li>
                 <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการสอน</a>
+                    <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
+                </li>
+                <li>
+                    <a href="">จัดการแผนการเรียน</a>
                 </li>
             <?php } else{?>
                 <li>
-                    <a href="../main/Main.php">ข้อมูลส่วนตัว</a>
+                    <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href=" ">จัดการผลการเรียน</a>
+                    <a href="../setScore/SubjectList.php">จัดการผลการเรียน</a>
                 </li>
             <?php } ?>
             </ul>
@@ -102,87 +85,50 @@ else{
         <!-- Page Content  -->
         <div id="content">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
 
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fas fa-align-left"></i>
-            <span>เมนูหลัก</span>
-        </button>
-        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-align-justify"></i>
-        </button>
-    </div>
-</nav>
-<a class="btn btn-sm btn-secondary mb-2" href="../../view/setScore/SubjectList.php"> < กลับ</a>
-<h3>จักการผลการเรียน</h3>
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>เมนูหลัก</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </nav>
+            <a class="btn btn-sm btn-secondary m-1" href="./Program.php"> < กลับหน้าเดิม</a>
+<h3>เพิ่มแผนการเรียน</h3>
+            <hr>
+            <form action="../../control/program/AddCos.php" method="POST">
+                <!-- รหัสแผนการเรียน  -->
+                <div class="form-group row">
+                    <label for="courseCode"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสแผนการเรียน
+                        :</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control form-control-sm" name="courseCode" id="courseCode" required>
+                    </div>
+                </div>
+                <!-- ชื่อแผนการเรียน  -->
+                <div class="form-group row">
+                    <label for="courseName"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อแผนการเรียน : </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control form-control-sm" name="courseName" id="courseName" required >
+                    </div>
+                </div>
 
-<div class="card mt-2" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">เกณฑ์คะแนน [ค่าตั้งต้น]</h5>
-    <h6>A > 80</h6>
-    <h6>B+ > 75</h6>
-    <h6>B > 70</h6>
-    <h6>C+ > 65</h6>
-    <h6>C > 60</h6>
-    <h6>D+ > 55</h6>
-    <h6>D > 50</h6>
-    <h6>F : ไม่ผ่าน</h6>
-    <a class="btn btn-primary btn-sm mt-2" href="#">ตั้งเกณฑ์คะแนน</a>
-  </div>
-</div>
+                <div class="row">
+                        <button type="submit" class="btn btn-sm btn-primary mx-auto col-2">บันทึก</button>
+                    </div>
+            </form>
 
-<form action="" method="GET">
+            
 
-<div class="row mt-3">
-<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtkey" id="" placeholder="รหัส - ชื่อ/นามสกุล">
-<button class="btn btn-secondary btn-sm m-1 col-1">ค้นหา</button> 
-</div>
-
-
-
-
-
-</form>
-            <!-- alert  -->
-            <?php if($_GET['susccess'] == 1){ ?>
-<div class="alert alert-success" role="alert">
-สำเร็จ
-</div>
-
-<?php }else if($_GET['susccess'] == 2) { ?>
-<div class="alert alert-danger" role="alert">
-มีบางอย่างผิดพลาด ลองอีกครั้ง
-</div> <?php } ?>
-<!-- end alert  -->
-
-<table class="table table-bordered mt-2 mx-auto">
-    <thead>
-        <tr>
-            <th class="text-center" scope="col">รหัสนักศึกษา</th>
-            <th scope="col">ชื่อ - นามสกุล</th>
-            <th class="text-center" scope="col">คะแนน</th>
-            <th class="text-center" scope="col">เกรด</th>
-            <th class="text-center" scope="col">จัดการ</th>
-          </tr>
-        </thead>
-        <tbody>
-<tr>
-<td>s</td>
-<td>s</td>
-<td>s</td>
-<td>s</td>
-<td>s</td>
-</tr>
-            <tbody>
-
-              </tbody>
-      </table>
-
-
-</div>
+        </div>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

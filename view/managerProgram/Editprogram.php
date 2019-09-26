@@ -1,19 +1,13 @@
 <?php
 session_start();
-include('../../model/connect.php');
-if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
-    $query = $conn->query($sql);
-    $result = $query -> FETCH_ASSOC();
-    $name = $result['tc_name'];
-    $code = $result['tc_code'];
-    $date = $result['tc_date'];
-}
-else{
-    $name = 'Admin';
-}
+include_once('../../model/connect.php');
 error_reporting(0);
+$_SESSION['editcos'] = $_GET['ID'];
+$sql =  "SELECT * FROM `coursename_tb` WHERE Cos_code = '".$_GET['ID']."'";
+$query = $conn->query($sql);
+$result = $query->FETCH_ASSOC();
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -22,7 +16,7 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จัดการนักศึกษา</title>
+    <title>แก้ไขแผนการเรียน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -38,6 +32,7 @@ error_reporting(0);
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
+
 <body class="setfont">
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -53,7 +48,7 @@ error_reporting(0);
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>
                 <li>
-                    <a href="../main/Main.php">ข้อมูลส่วนตัว</a>
+                    <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
                     <a href="../managerPersonnel/ManagerPersonnel.php">จัดการบุคลากร</a>
@@ -65,7 +60,7 @@ error_reporting(0);
                     <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
                 </li>
                 <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการเรียน</a>
+                    <a href="">จัดการแผนการเรียน</a>
                 </li>
             <?php } else{?>
                 <li>
@@ -105,48 +100,37 @@ error_reporting(0);
                     </button>
                 </div>
             </nav>
-            <h3>จัดการนักศึกษา</h3>
-<button class="btn btn-success btn-sm m-1"><a href="./AddStudent.php"> + เพิ่มนักศึกษา</a></button> 
-<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
-<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
+            <a class="btn btn-sm btn-secondary m-1" href="./Program.php"> < กลับหน้าเดิม</a>
+<h3>แก้ไขแผนการเรียน</h3>
+            <hr>
+            <form action="../../control/program/EditCos.php" method="POST">
+                <!-- รหัสแผนการเรียน  -->
+                <div class="form-group row">
+                    <label for="courseCode"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสแผนการเรียน
+                        :</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control form-control-sm" name="courseCode" id="courseCode" required
+                        value="<?php echo $result['Cos_code'];?>">
+                    </div>
+                </div>
+                <!-- ชื่อแผนการเรียน  -->
+                <div class="form-group row">
+                    <label for="courseName"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อแผนการเรียน : </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control form-control-sm" name="courseName" id="courseName" required 
+                        value="<?php echo $result['Cos_name'];?>">
+                    </div>
+                </div>
 
-<?php if($_GET['susccess'] == 1){ ?>
-    <div class="alert alert-success" role="alert">
-  สำเร็จ
-</div>
+                <div class="row">
+                        <button type="submit" class="btn btn-sm btn-primary mx-auto col-2">แก้ไข</button>
+                    </div>
+            </form>
 
-<?php }else if($_GET['susccess'] == 2) { ?>
-    <div class="alert alert-danger" role="alert">
-  มีบางอย่างผิดพลาด กรุณาตรวจสอบ
-</div> <?php } ?>
+            
 
-
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">รหัสนักศึกษา</th>
-                        <th scope="col">ชื่อ - นามสกุล</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ลบ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                        <tbody>
-                            <tr>
-                            <?php
-                            $sqlstd ="SELECT * FROM `student_tb`";
-                            $querystd = $conn->query($sqlstd);
-                            while($resultstd = $querystd->fetch_assoc()){ ?>
-                              <td><?php echo $resultstd['std_code']; ?></td>
-                              <td><?php echo $resultstd['std_name']; ?></td>
-       
-                              <td><a class="btn btn-dark btn-sm" href="./EditStudent.php?Std_Code=<?php echo $resultstd['std_id'];?>">แก้ไข</a></td>
-                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('Confirm Delete?') == true){window.location='../../control/student/DelStudent.php?Std_Code=<?php echo $resultstd["std_id"];?>';}">ลบ</a></td>
-                            </tr>
-                            <?php } ?>
-                          </tbody>
-                  </table>
         </div>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->

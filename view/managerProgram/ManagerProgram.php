@@ -2,8 +2,7 @@
 session_start();
 include_once('../../model/connect.php');
 error_reporting(0);
-
-$_SESSION['EditProgream'] = $_GET['CosId'];
+$_SESSION['showprogram'] = $_GET['ID'];
 
 $sql = "SELECT DISTINCT course_tb.Cos_id,course_tb.Cos_term,course_tb.Sub_Code, subject_tb.Sub_Name, subject_tb.Sub_Credit,
 				course_tb.Teach_code,teacher_tb.tc_name
@@ -109,6 +108,7 @@ $result = $query->FETCH_ASSOC();
                     </button>
                 </div>
             </nav>
+            <a class="btn btn-sm btn-secondary m-1" href="./Program.php"> < กลับหน้าเดิม</a>
             <h3>จัดการวิชาแผนการเรียน</h3> 
 
 
@@ -195,8 +195,7 @@ while($rowTeacher = $queryTeacher->fetch_assoc()){ ?>
                     value="<?php if($_GET['CosId']){ echo substr($result['Cos_term'],-4,4);}else { echo "";}?>" required>
 
                         <!-- ปุ่ม -->
-                        <?php if($_GET['CosId']){ 
-          $_SESSION['EditProgream'] = $_GET['CosId'];?>
+                        <?php if($_GET['CosId']){ ?>
 <input class="my-auto btn btn-sm mr-2" type="submit" value="แก้ไขวิชา" name="Edit">
 <a class="my-auto btn btn-danger btn-sm" href="../../control/program/ref.php">ยกเลิก</a>
       <?php }else{?>
@@ -221,33 +220,6 @@ while($rowTeacher = $queryTeacher->fetch_assoc()){ ?>
 
       <div id="result"></div>
 
-      <!-- <table class="table table-bordered">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">รหัสวิชา</th>
-      <th scope="col">รายวิชา</th>
-      <th scope="col">หน่วยกิต</th>
-      <th scope="col">อาจารย์ผู้สอน</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th colspan="4">ปีการศึกษา.... </th>
-    </tr>
-    <tr>
-      <td>9011103</td>
-      <td>ภาษาอังกฤษเพื่อทักษะการเรียน</td>
-      <td>3</td>
-      <td>ญาดา จุ๊กกู๊ว</td>
-    </tr>
-    <tr>
-      <td>9011202</td>
-      <td>สุนทรียภาพของชีวิต</td>
-      <td>3</td>
-      <td>วรวิทย์ หน้าจิ๋ม</td>
-    </tr>
-  </tbody>
-</table> -->
 
 
 

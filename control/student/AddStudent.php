@@ -9,7 +9,7 @@ $query = $conn->query($sql);
 
 
 
-if($query == TRUE AND $queryMb == TRUE){
+if($query == TRUE){
     header( "location: ../../view/managerStudent/ManagerStudent.php?susccess=1");
 }
 else{

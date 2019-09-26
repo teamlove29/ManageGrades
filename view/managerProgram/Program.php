@@ -1,19 +1,24 @@
 <?php
 session_start();
-include('../../model/connect.php');
-if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
-    $query = $conn->query($sql);
-    $result = $query -> FETCH_ASSOC();
-    $name = $result['tc_name'];
-    $code = $result['tc_code'];
-    $date = $result['tc_date'];
+include_once('../../model/connect.php');
+error_reporting(0);
+$sql = "SELECT DISTINCT Cos_code, Cos_name FROM coursename_tb";
+$query = $conn->query($sql);
+
+$datePresent = date('Y') + 543;
+$MoPresent = date('m') ;
+$dateFuture = $datePresent + 5;
+$datePast = $datePresent - 5;
+if($MoPresent >= 6 AND $MoPresent <= 12){
+    $txtTerm = "1/".$datePresent;
 }
 else{
-    $name = 'Admin';
+    $txtTerm = "2/".$datePresent;
 }
-error_reporting(0);
+
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -22,7 +27,7 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จัดการนักศึกษา</title>
+    <title>จัดการแผนการเรียน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -38,6 +43,7 @@ error_reporting(0);
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
+
 <body class="setfont">
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -65,7 +71,7 @@ error_reporting(0);
                     <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
                 </li>
                 <li>
-                    <a href="../managerProgram/ManagerProgram.php">จัดการแผนการเรียน</a>
+                    <a href="">จัดการแผนการเรียน</a>
                 </li>
             <?php } else{?>
                 <li>
@@ -105,10 +111,30 @@ error_reporting(0);
                     </button>
                 </div>
             </nav>
-            <h3>จัดการนักศึกษา</h3>
-<button class="btn btn-success btn-sm m-1"><a href="./AddStudent.php"> + เพิ่มนักศึกษา</a></button> 
-<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
-<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
+            <h3>จัดการแผนการเรียน</h3>
+
+            <form action="" method="GET">
+<div class="row">
+<select class="form-control col-form-label col-form-label-sm col-4 ml-3" name="txtkey" id="">
+<option value="" >ภาคเรียน/ปีการศึกษา</option>
+<?php 
+for($i=0;$i<5;$i++) { 
+    for($j=1;$j<=2;$j++){
+        $test = $datePresent-$i;
+        $va = $j."/".$test;
+        echo "<option value=".$va.">";
+        echo $j."/";
+        echo $datePresent-$i;
+        echo "</option>";
+    }
+}
+?>
+</select>
+<button class="btn btn-secondary btn-sm m-1 col-1">ค้นหา</button> 
+</div>
+</form>
+
+<a href="./AddProgram.php" class="btn btn-success btn-sm m-1 mt-3">+ แผนการเรียน</a> 
 
 <?php if($_GET['susccess'] == 1){ ?>
     <div class="alert alert-success" role="alert">
@@ -120,33 +146,39 @@ error_reporting(0);
   มีบางอย่างผิดพลาด กรุณาตรวจสอบ
 </div> <?php } ?>
 
+<table class="table table-bordered  mx-auto">
+    <thead>
+        <tr>
+            <th class="text-center" scope="col">รหัสแผน</th>
+            <th scope="col">แผนการเรียน</th>
+            <th class="text-center" scope="col">จัดการ</th>
+            <th class="text-center" scope="col">แก้ไข</th>
+            <th class="text-center" scope="col">ลบ</th>
+          </tr>
+        </thead>
+        <tbody>
 
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">รหัสนักศึกษา</th>
-                        <th scope="col">ชื่อ - นามสกุล</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ลบ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+            <tbody>
+                <tr>
+                <?php 
 
-                        <tbody>
-                            <tr>
-                            <?php
-                            $sqlstd ="SELECT * FROM `student_tb`";
-                            $querystd = $conn->query($sqlstd);
-                            while($resultstd = $querystd->fetch_assoc()){ ?>
-                              <td><?php echo $resultstd['std_code']; ?></td>
-                              <td><?php echo $resultstd['std_name']; ?></td>
-       
-                              <td><a class="btn btn-dark btn-sm" href="./EditStudent.php?Std_Code=<?php echo $resultstd['std_id'];?>">แก้ไข</a></td>
-                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('Confirm Delete?') == true){window.location='../../control/student/DelStudent.php?Std_Code=<?php echo $resultstd["std_id"];?>';}">ลบ</a></td>
-                            </tr>
-                            <?php } ?>
-                          </tbody>
-                  </table>
+                    $sqlshow ="SELECT DISTINCT * FROM `coursename_tb` ";
+
+
+                $queryshow = $conn->query($sqlshow);
+                
+                while($row = $queryshow->fetch_assoc()){ ?>
+                  <td class="text-center"><?php echo $row['Cos_code']; ?></td>
+                  <td><?php echo $row['Cos_name']; ?></td> 
+                  <td class="text-center"><a class="btn btn-dark btn-sm" href="./ManagerProgram.php?ID=<?php echo $row['Cos_code']; ?>">จัดการ</a></td>
+                  <td><a class="btn btn-dark btn-sm" href="./Editprogram.php?ID=<?php echo $row['Cos_code'];?>">แก้ไข</a></td>
+                  <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('Confirm Delete?') == true){window.location='../../control/program/DelCos.php?ID=<?php echo $row["Cos_code"];?>';}">ลบ</a></td>
+                </tr>
+                <?php } ?>
+              </tbody>
+      </table>
+
+
         </div>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->
