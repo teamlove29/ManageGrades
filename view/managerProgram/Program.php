@@ -2,6 +2,18 @@
 session_start();
 include_once('../../model/connect.php');
 error_reporting(0);
+
+if($_SESSION['Type_id'] == 2){
+    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
+    $query = $conn->query($sql);
+    $result = $query -> FETCH_ASSOC();
+    $name = $result['tc_name'];
+    $code = $result['tc_code'];
+    $date = $result['tc_date'];
+}
+else{
+    $name = 'Admin';
+}
 $sql = "SELECT DISTINCT Cos_code, Cos_name FROM coursename_tb";
 $query = $conn->query($sql);
 
@@ -71,7 +83,10 @@ else{
                     <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
                 </li>
                 <li>
-                    <a href="">จัดการแผนการเรียน</a>
+                    <a href="../managerProgram/Program.php">จัดการแผนการเรียน</a>
+                </li>
+                <li>
+                    <a href="../register/Register.php">ลงทะเบียน</a>
                 </li>
             <?php } else{?>
                 <li>

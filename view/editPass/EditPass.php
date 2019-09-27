@@ -1,6 +1,17 @@
 <?php
 session_start();
 include_once('../../model/connect.php');error_reporting(0);
+if($_SESSION['Type_id'] == 2){
+    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
+    $query = $conn->query($sql);
+    $result = $query -> FETCH_ASSOC();
+    $name = $result['tc_name'];
+    $code = $result['tc_code'];
+    $date = $result['tc_date'];
+}
+else{
+    $name = 'Admin';
+}
 // ู$id = "";
 // $_SESSION['Teach_edit'] = "";
 // $id = $_GET['Teach_id'];
@@ -43,7 +54,7 @@ include_once('../../model/connect.php');error_reporting(0);
             <img class="circle-img mt-4"
                 src="http://americanmuslimconsumer.com/wp-content/uploads/2013/09/blank-user.jpg"
                 alt="">
-            <p class="text-center text-light mt-3 setfont"><?php echo $_SESSION['name']; ?> </p>
+            <p class="text-center text-light mt-3 setfont"><?php echo $name; ?> </p>
 
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>

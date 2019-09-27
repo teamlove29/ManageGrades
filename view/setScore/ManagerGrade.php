@@ -141,7 +141,7 @@ error_reporting(0);
 </div> <?php } ?>
 <!-- end alert  -->
 
-<table class="table table-bordered mt-2 mx-auto">
+<table class="table table-bordered mt-2 mx-auto text-center">
     <thead>
     
     

@@ -117,8 +117,9 @@ else{
     </div>
 </nav>
 <h3>จักการผลการเรียน</h3>
-
-<div class="card mt-2" style="width: 18rem;">
+<a class="btn btn-primary btn-sm mt-2" href="../criteria/SetCriteria.php">ตั้งเกณฑ์คะแนน</a>
+<div class="row">
+<div class="card mt-2 col-3 ml-3" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">เกณฑ์คะแนน [ค่าตั้งต้น]</h5>
     <h6>A > 80</h6>
@@ -129,9 +130,41 @@ else{
     <h6>D+ > 55</h6>
     <h6>D > 50</h6>
     <h6>F : ไม่ผ่าน</h6>
-    <a class="btn btn-primary btn-sm mt-2" href="#">ตั้งเกณฑ์คะแนน</a>
   </div>
 </div>
+
+<div class="card mt-2 col-3 ml-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">เกณฑ์คะแนน</h5>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6>F : ไม่ผ่าน</h6>
+    <a class="btn btn-primary btn-sm mt-2" href="../criteria/SetCriteria.php">ตั้งเป็นค่าตั้งต้น</a>
+  </div>
+</div>
+
+<div class="card mt-2 col-3 ml-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">เกณฑ์คะแนน</h5>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6></h6>
+    <h6>F : ไม่ผ่าน</h6>
+    <a class="btn btn-primary btn-sm mt-2" href="../criteria/SetCriteria.php">ตั้งเป็นค่าตั้งต้น</a>
+  </div>
+</div>
+
+</div>
+
 
 <form action="" method="GET">
 <div class="row mt-3">
@@ -173,6 +206,7 @@ for($i=0;$i<5;$i++) {
         <tr>
             <th class="text-center" scope="col">รหัสวิชา</th>
             <th scope="col">รายวิชา</th>
+            <th class="text-center" scope="col">เกณฑ์คะแนน</th>
             <th class="text-center" scope="col">จัดการ</th>
           </tr>
         </thead>
@@ -203,7 +237,7 @@ for($i=0;$i<5;$i++) {
                 while($row = $queryshow->fetch_assoc()){ ?>
                   <td class="text-center"><?php echo $row['Sub_Code']; ?></td>
                   <td><?php echo $row['Sub_Name']; ?></td> 
-
+                    <td></td>
                   <td class="text-center"><a class="btn btn-dark btn-sm" href="./ManagerGrade.php?SJ_ID=<?php echo $row['Sub_Code']; ?>">จัดการ</a></td>
                 </tr>
                 <?php } ?>

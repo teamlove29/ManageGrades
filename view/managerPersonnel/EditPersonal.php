@@ -2,6 +2,19 @@
 session_start();
 include_once('../../model/connect.php');
 error_reporting(0);
+
+if($_SESSION['Type_id'] == 2){
+    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
+    $query = $conn->query($sql);
+    $result = $query -> FETCH_ASSOC();
+    $name = $result['tc_name'];
+    $code = $result['tc_code'];
+    $date = $result['tc_date'];
+}
+else{
+    $name = 'Admin';
+}
+
 $_SESSION['editID'] = $_GET['tcID'];
 
 $sql = "SELECT * FROM teacher_tb WHERE tc_id = '".$_SESSION['editID']."'";
@@ -41,22 +54,34 @@ $result = $query->FETCH_ASSOC();
             <img class="circle-img mt-4"
                 src="http://americanmuslimconsumer.com/wp-content/uploads/2013/09/blank-user.jpg"
                 alt="">
-            <p class="text-center text-light mt-3 setfont"><?php echo $_SESSION['name']; ?> </p>
+            <p class="text-center text-light mt-3 setfont"><?php echo $name; ?> </p>
 
             <ul class="list-unstyled components pl-2">
             <?php if($_SESSION['Type_id'] == 1){ ?>
                 <li>
-                    <a href="">ข้อมูลส่วนตัว</a>
+                    <a href="../main/Main.php">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="../managerPersonnel/managerPersonnel.php">จัดการบุคลากร</a>
+                    <a href="../managerPersonnel/ManagerPersonnel.php">จัดการบุคลากร</a>
+                </li>
+                <li>
+                    <a href="../managerSubject/ManagerSubject.php">จัดการรายวิชา</a>
+                </li>
+                <li>
+                    <a href="../managerStudent/ManagerStudent.php">จัดการนักศึกษา</a>
+                </li>
+                <li>
+                    <a href="../managerProgram/Program.php">จัดการแผนการเรียน</a>
+                </li>
+                <li>
+                    <a href="../register/Register.php">ลงทะเบียน</a>
                 </li>
             <?php } else{?>
                 <li>
                     <a href="">ข้อมูลส่วนตัว</a>
                 </li>
                 <li>
-                    <a href="../grade/GradeMain.php">จัดการผลการเรียน</a>
+                    <a href="../setScore/SubjectList.php">จัดการผลการเรียน</a>
                 </li>
             <?php } ?>
             </ul>
