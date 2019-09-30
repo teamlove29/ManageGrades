@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2019 at 03:13 PM
+-- Generation Time: Sep 30, 2019 at 07:59 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -38,8 +38,7 @@ CREATE TABLE `coursename_tb` (
 --
 
 INSERT INTO `coursename_tb` (`Cos_code`, `Cos_name`) VALUES
-('12345', 'วิศวกรรมซอฟต์แวร์ ปี3'),
-('12346', 'วิศวกรรมซอฟต์แวร์ ปี2');
+('12345', 'วิศวกรรมซอฟต์แวร์ ปี3');
 
 -- --------------------------------------------------------
 
@@ -52,16 +51,18 @@ CREATE TABLE `course_tb` (
   `Cos_term` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Sub_Code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Teach_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Cos_code` int(11) NOT NULL
+  `Cos_code` int(11) NOT NULL,
+  `ctr_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `course_tb`
 --
 
-INSERT INTO `course_tb` (`Cos_id`, `Cos_term`, `Sub_Code`, `Teach_code`, `Cos_code`) VALUES
-(82, '1/2562', '5672202', '60122660130', 12345),
-(84, '2/2560', '5672101', '60122660130', 12346);
+INSERT INTO `course_tb` (`Cos_id`, `Cos_term`, `Sub_Code`, `Teach_code`, `Cos_code`, `ctr_number`) VALUES
+(85, '1/2562', '5672602', '60122660130', 12345, 2),
+(86, '1/2562', '5673602', '60122660130', 12345, 1),
+(87, '1/2562', '5673605', '60122660130', 12345, 1);
 
 -- --------------------------------------------------------
 
@@ -70,24 +71,32 @@ INSERT INTO `course_tb` (`Cos_id`, `Cos_term`, `Sub_Code`, `Teach_code`, `Cos_co
 --
 
 CREATE TABLE `criteria_tb` (
-  `ctr_id` int(11) NOT NULL,
-  `ctr_score` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `ctr_font` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `ctr_id` int(10) NOT NULL,
+  `ctr_number` int(10) NOT NULL,
+  `ctr_score` varchar(10) COLLATE utf8_unicode_520_ci NOT NULL,
+  `ctr_font` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `ctr_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
 --
 -- Dumping data for table `criteria_tb`
 --
 
-INSERT INTO `criteria_tb` (`ctr_id`, `ctr_score`, `ctr_font`) VALUES
-(1, '80', 'A'),
-(1, '75', 'B+'),
-(1, '70', 'B'),
-(1, '65', 'C+'),
-(1, '60', 'C'),
-(1, '55', 'D+'),
-(1, '50', 'D'),
-(1, '49', 'F');
+INSERT INTO `criteria_tb` (`ctr_id`, `ctr_number`, `ctr_score`, `ctr_font`, `ctr_name`) VALUES
+(19, 2, '70', 'A', 'A = 70'),
+(20, 2, '65', 'B+', 'A = 70'),
+(21, 2, '60', 'B', 'A = 70'),
+(22, 2, '50', 'C+', 'A = 70'),
+(23, 2, '55', 'C', 'A = 70'),
+(24, 2, '45', 'D+', 'A = 70'),
+(25, 2, '40', 'D', 'A = 70'),
+(40, 1, '80', 'A', 'A = 80'),
+(41, 1, '75', 'B+', 'A = 80'),
+(42, 1, '70', 'B', 'A = 80'),
+(43, 1, '60', 'C+', 'A = 80'),
+(44, 1, '65', 'C', 'A = 80'),
+(45, 1, '55', 'D+', 'A = 80'),
+(46, 1, '50', 'D', 'A = 80');
 
 -- --------------------------------------------------------
 
@@ -109,7 +118,10 @@ CREATE TABLE `grade_tb` (
 
 INSERT INTO `grade_tb` (`grad_id`, `std_code`, `sub_code`, `GPA`, `grade_font`) VALUES
 (1, '60122660115', '5672202', 50, 'D'),
-(3, '60122660100', '5672202', 20, 'F');
+(3, '60122660100', '5672202', 20, 'F'),
+(4, '60122660100', '5672602', 39, 'F'),
+(5, '60122660101', '5672602', 40, 'D'),
+(6, '60122660102', '5672602', 46, 'D+');
 
 -- --------------------------------------------------------
 
@@ -130,8 +142,7 @@ CREATE TABLE `member_tb` (
 
 INSERT INTO `member_tb` (`mb_id`, `mb_user`, `mb_pass`, `mb_type`) VALUES
 (1, 'admin', 'YWRtaW4=', 1),
-(16, '60122660130', 'MTIzNA==', 2),
-(22, '60122660132', 'MTIzNA==', 2);
+(16, '60122660130', 'MTIzNA==', 2);
 
 -- --------------------------------------------------------
 
@@ -156,7 +167,17 @@ INSERT INTO `register_tb` (`reg_id`, `std_code`, `cos_code`) VALUES
 (5, '60122660115', 12345),
 (6, '', 12346),
 (7, '61122660132', 12346),
-(8, '61122660100', 12346);
+(8, '61122660100', 12346),
+(9, '60122660132', 12345),
+(10, '60122660101', 12345),
+(11, '60122660102', 12345),
+(12, '60122660103', 12345),
+(13, '60122660104', 12345),
+(14, '60122660105', 12345),
+(15, '60122660107', 12345),
+(16, '60122660108', 12345),
+(17, '60122660109', 12345),
+(18, '60122660110', 12345);
 
 -- --------------------------------------------------------
 
@@ -175,12 +196,20 @@ CREATE TABLE `student_tb` (
 --
 
 INSERT INTO `student_tb` (`std_id`, `std_code`, `std_name`) VALUES
-(1, '60122660134', 'จู๋เล็ก นิดเดียว'),
+(1, '60122660134', 'นายนันทวัฒน์ กันทะยอด'),
 (3, '60122660100', 'วรวิทย์ ใจคำวัง'),
 (4, '60122660111', 'ทดสอบ นะครับ'),
-(5, '60122660115', 'อิคึ อิไต'),
-(6, '61122660132', 'กุลชี่เบล งูมันกัดหำมา'),
-(7, '61122660100', 'อิไต อิไต');
+(6, '60122660132', 'นายมารุตเทพ ร่มโพธิ์'),
+(8, '60122660101', 'นายกิตติโชติ มุลทะโนช'),
+(9, '60122660102', 'นายคณาศักดิ์ จ่าปัน'),
+(10, '60122660103', 'นายชนาธิป ปานกลาง'),
+(11, '60122660104', 'นางสาวณัฐมล มะวงค์ไวย'),
+(12, '60122660105', 'นายธัญญะ เตชะ'),
+(13, '60122660107', 'นายบัณฑิตพงษ์ ตาปินตา'),
+(14, '60122660108', 'นายปณัทพงศ์ สุปินนะ'),
+(15, '60122660109', 'นายพชรดนัย เทพแก้ว'),
+(16, '60122660110', 'นางสาวเมรียา ลาดปาละ'),
+(17, '60122660111', 'นายยุทธนา แสงจันทร์');
 
 -- --------------------------------------------------------
 
@@ -200,13 +229,13 @@ CREATE TABLE `subject_tb` (
 --
 
 INSERT INTO `subject_tb` (`Sub_id`, `Sub_code`, `Sub_Name`, `Sub_Credit`) VALUES
-(1, '9011103', 'ภาษาอังกฤษเพื่อทักษะการเรียน', '3'),
-(2, '9011202', 'สุนทรียภาพของชีวิต', '3'),
-(3, '9011403', 'เทคโนโลยีสารสนเทศเพื่อการเรียนรู้', '3'),
-(4, '9011204', 'ทักษะการรู้สารสนเทศ', '3'),
-(5, '5672202', 'การเขียนโปรแกรมเชิงวัตถุ', '3'),
-(6, '5672101', 'คณิตศาสตร์ดิสครีตสำหรับวิศวกรรมซอฟต์แวร์', '3'),
-(11, '1234', 'ทดสอบ ทวนสอบ', '3'),
+(1, '5672602', 'สถาปัตยกรรมซอฟต์แวร์', '3'),
+(2, '5673101', 'พีชคณิตเชิงเส้นสำหรับวิศวกรรมซอฟต์แวร์', '3'),
+(3, '5673602', 'การประกันคุณภาพในกระบวนการพัฒนาซอฟต์แวร์', '3'),
+(4, '5673603', 'การสร้างและการวิวัฒน์ซอฟต์แวร์', '3'),
+(5, '5673605', 'การทวนสอบและการทดสอบซอฟต์แวร์', '3'),
+(6, '5674901', 'สัมมนาวิศวกรรมซอฟต์แวร์', '3'),
+(11, '9011501', 'พลังงานและการอนุรักษ์พลังงาน', '3'),
 (12, '147258', 'ทดสอบอีกรอบ', '3');
 
 -- --------------------------------------------------------
@@ -229,7 +258,6 @@ CREATE TABLE `teacher_tb` (
 --
 
 INSERT INTO `teacher_tb` (`tc_id`, `tc_code`, `tc_name`, `tc_idCard`, `tc_email`, `tc_date`) VALUES
-(1, '60122660132', 'มารุตเทพ ร่มโพธิ์', '1520100104758', 'ScreenAnyWhere@gmail.com', '1994-05-22'),
 (10, '60122660130', 'ญาดา ตาเมืองมูล', '1520100104758', 'test@gmail.com', '1994-05-22');
 
 --
@@ -241,6 +269,12 @@ INSERT INTO `teacher_tb` (`tc_id`, `tc_code`, `tc_name`, `tc_idCard`, `tc_email`
 --
 ALTER TABLE `course_tb`
   ADD PRIMARY KEY (`Cos_id`);
+
+--
+-- Indexes for table `criteria_tb`
+--
+ALTER TABLE `criteria_tb`
+  ADD PRIMARY KEY (`ctr_id`);
 
 --
 -- Indexes for table `grade_tb`
@@ -286,13 +320,19 @@ ALTER TABLE `teacher_tb`
 -- AUTO_INCREMENT for table `course_tb`
 --
 ALTER TABLE `course_tb`
-  MODIFY `Cos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `Cos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
+--
+-- AUTO_INCREMENT for table `criteria_tb`
+--
+ALTER TABLE `criteria_tb`
+  MODIFY `ctr_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `grade_tb`
 --
 ALTER TABLE `grade_tb`
-  MODIFY `grad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `grad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `member_tb`
@@ -304,13 +344,13 @@ ALTER TABLE `member_tb`
 -- AUTO_INCREMENT for table `register_tb`
 --
 ALTER TABLE `register_tb`
-  MODIFY `reg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `reg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `student_tb`
 --
 ALTER TABLE `student_tb`
-  MODIFY `std_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `std_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `subject_tb`
