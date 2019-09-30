@@ -2,30 +2,59 @@
 session_start();
 include '../../model/connect.php';
 
+$sqltool = "SELECT course_tb.Sub_Code,course_tb.ctr_number,criteria_tb.ctr_score,criteria_tb.ctr_font FROM `course_tb` 
+INNER JOIN criteria_tb
+ON criteria_tb.ctr_number = course_tb.ctr_number
+WHERE course_tb.Sub_Code = '".$_SESSION['ctrname']."'";
+$querytool = $conn->query($sqltool);
+while($row = $querytool ->FETCH_ASSOC()){
+    if($row['ctr_font'] == 'A'){
+        $scoreA = $row['ctr_score'];
+    }
+    else if($row['ctr_font'] == 'B+'){
+        $scoreBb = $row['ctr_score'];
+    }
+    else if($row['ctr_font'] == 'B'){
+        $scoreB = $row['ctr_score'];
+    }
+    else if($row['ctr_font'] == 'C+'){
+        $scoreCc = $row['ctr_score'];
+    }
+    else if($row['ctr_font'] == 'C'){
+        $scoreC = $row['ctr_score'];
+    }
+    else if($row['ctr_font'] == 'D+'){
+        $scoreDd = $row['ctr_score'];
+    }
+    else if($row['ctr_font'] == 'D'){
+        $scoreD = $row['ctr_score'];
+    }
+}
+
 $grade = $_POST['txtscore'];
 
        if(($grade>100)||($grade<0)) {    
          echo "เกรดที่ได้  : ไม่สามารถคิดเกรดได้ คะแนนเกิน".'<br>';   
       }
-      else if (($grade>=79.5)&&($grade<=100)) {    
+      else if (($grade>=$scoreA)&&($grade<=100)) {    
          $gradeSum = "A";   
       }
-       else if (($grade>=74.5)&&($grade<=79.4)) {    
+       else if ($grade>=$scoreBb) {    
          $gradeSum = "B+";   
       }
-       else if (($grade>=69.5)&&($grade<=74.4)) {       
+       else if ($grade>=$scoreB) {       
          $gradeSum = "B";    
       }
-       else if (($grade>=64.5)&&($grade<=69.4)) {
+       else if ($grade>=$scoreCc) {
          $gradeSum = "C+";    
       }
-       else if (($grade>=59.5)&&($grade<=64.4)) {    
+       else if ($grade>=$scoreC) {    
          $gradeSum = "C";   
       }
-       else if (($grade>=54.5)&&($grade=59.4)) {            
+       else if ($grade>=$scoreDd) {            
          $gradeSum = "D+";    
       }
-       else if (($grade>=49.5)&&($grade<=54.4)) {       
+       else if ($grade>=$scoreD) {       
          $gradeSum = "D";    
       }
        else {$gradeSum = "F";}   

@@ -1,6 +1,8 @@
 <?php
 session_start();
-include('../../model/connect.php');
+include_once('../../model/connect.php');
+// error_reporting(0);
+
 if($_SESSION['Type_id'] == 2){
     $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
     $query = $conn->query($sql);
@@ -12,7 +14,11 @@ if($_SESSION['Type_id'] == 2){
 else{
     $name = 'Admin';
 }
-error_reporting(0);
+
+$_SESSION['CTID'] = $_GET['CTID'];
+
+$sql = "SELECT * FROM criteria_tb WHERE ctr_number = '".$_SESSION['CTID']."'";
+$query = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,14 +28,13 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จัดการนักศึกษา</title>
+    <title>แก้ไขเกณฑ์คะแนน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="../../style/Style.css">
-
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
@@ -90,10 +95,10 @@ error_reporting(0);
 
             </ul>
         </nav>
+
         <!-- Page Content  -->
         <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -107,50 +112,50 @@ error_reporting(0);
                     </button>
                 </div>
             </nav>
-            <h3>จัดการนักศึกษา</h3>
-<button class="btn btn-success btn-sm m-1"><a href="./AddStudent.php"> + เพิ่มนักศึกษา</a></button> 
-<input type="text" placeholder="รหัสนักศึกษา/ชื่อ - นามสกุล">
-<button class="btn btn-secondary btn-sm m-1">ค้นหา</button> 
+            <a class="btn btn-sm btn-secondary m-1" href="../setScore/SubjectList.php"> < กลับหน้าเดิม</a>
+            <h3 class="text-center">แก้ไขเกณฑ์คะแนน</h3>
+            <hr>
+            <form id="myform" name='myform' method="POST" action="../../control/criteria/EditCriteria.php">
+                <!-- รหัสเกณฑ์ -->
+                <div class="form-group row">
+        
+                    <label for="txtcode"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสเกณฑ์ : </label>
+                    <div class="col-sm-5">
+                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" value="<?php echo $_GET['CTID'] ?>" required readonly></div>
+                </div>
 
-<?php if($_GET['susccess'] == 1){ ?>
-    <div class="alert alert-success" role="alert">
-  สำเร็จ
-</div>
+  <!-- ชื่อ -->
+  <div class="form-group row">
+        <?php
+        
+        $sqlname = "SELECT * FROM criteria_tb WHERE ctr_number = '".$_SESSION['CTID']."'";
+        $queryname = $conn->query($sql);
+        $resultname = $queryname->FETCH_ASSOC();
+        ?>
+        <label for="txtname"
+            class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อเกณฑ์ : </label>
+        <div class="col-sm-5">
+            <input type="text" name="txtname" class="form-control form-control-sm" id="txtname"  value="<?php echo  $resultname['ctr_name']; ?>" required></div>
+    </div>
 
-<?php }else if($_GET['susccess'] == 2) { ?>
-    <div class="alert alert-danger" role="alert">
-  มีบางอย่างผิดพลาด กรุณาตรวจสอบ
-</div> <?php } ?>
+               <?php while($result = $query->FETCH_ASSOC()) {?>
+                <!-- A -->
+                <div class="form-group row">
+                    <label for="<?php echo 'txt'.$result['ctr_font']; ?>"
+                        class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold"><?php echo $result['ctr_font']; ?> : </label>
+                    <div class="col-sm-2">
+                        <input  type="text" name="<?php echo 'txt'.$result['ctr_font']; ?>" class="form-control form-control-sm" id="<?php echo 'txt'.$result['ctr_font']; ?>" 
+                                value="<?php echo $result['ctr_score'] ?>"  required></div>
+                    </div>
 
-
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">รหัสนักศึกษา</th>
-                        <th scope="col">ชื่อ - นามสกุล</th>
-                        <th scope="col">แก้ไข</th>
-                        <th scope="col">ลบ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                        <tbody>
-                            <tr>
-                            <?php
-                            $sqlstd ="SELECT * FROM `student_tb` ORDER BY std_code";
-                            $querystd = $conn->query($sqlstd);
-                            while($resultstd = $querystd->fetch_assoc()){ ?>
-                              <td><?php echo $resultstd['std_code']; ?></td>
-                              <td><?php echo $resultstd['std_name']; ?></td>
-       
-                              <td><a class="btn btn-dark btn-sm" href="./EditStudent.php?Std_Code=<?php echo $resultstd['std_id'];?>">แก้ไข</a></td>
-                              <td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('Confirm Delete?') == true){window.location='../../control/student/DelStudent.php?Std_Code=<?php echo $resultstd["std_id"];?>';}">ลบ</a></td>
-                            </tr>
-                            <?php } ?>
-                          </tbody>
-                  </table>
+               <?php } ?>
+            <div class="row">
+                <button class="btn btn-sm btn-success mx-auto col-2" >แก้ไข</button>
+                
+            </div>
         </div>
-
+        </form>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

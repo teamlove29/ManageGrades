@@ -2,7 +2,9 @@
 session_start();
 include_once('../../model/connect.php');
 error_reporting(0);
+
 $_SESSION['showprogram'] = $_GET['ID'];
+$_SESSION['EditProgream'] = $_GET['CosId'];
 if($_SESSION['Type_id'] == 2){
     $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
     $query = $conn->query($sql);

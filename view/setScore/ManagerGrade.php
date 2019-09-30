@@ -117,15 +117,35 @@ error_reporting(0);
 
 
 
-<form action="" method="GET">
+<form action="../../control/grade/UpdateCtr.php" method="POST">
 
-<div class="row mt-3">
-<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtkey" id="" placeholder="รหัส - ชื่อ/นามสกุล">
-<button class="btn btn-secondary btn-sm m-1 col-1">ค้นหา</button> 
+
+<?php 
+$_SESSION['ctrname'] = $_GET['SJ_ID'];
+$sqlname = "SELECT DISTINCT course_tb.ctr_number, criteria_tb.ctr_name FROM `course_tb` 
+            INNER JOIN criteria_tb 
+            ON criteria_tb.ctr_number = course_tb.ctr_number WHERE Sub_Code ='".$_SESSION['ctrname']."'";
+$queryname = $conn->query($sqlname);
+$resultname = $queryname->FETCH_ASSOC();
+?>
+
+<h5 class="mt-3">เกณฑ์ที่ใช้ : <?php echo $resultname['ctr_name']; ?></h5>
+<?php 
+// Update ctr
+
+$sqlcrt = "SELECT DISTINCT ctr_number,ctr_name FROM `criteria_tb` ";
+$querycrt = $conn->query($sqlcrt);
+?>
+<div class="form-group row">
+<select class="form-control col-form-label col-form-label-sm col-3 ml-3" name="txtCtr" id="" required>
+<option value="">แก้ไขเกณฑ์</option>
+<?php while($resultcrt = $querycrt->FETCH_ASSOC()) { ?>
+<option value="<?php echo $resultcrt['ctr_number']?>"><?php echo $resultcrt['ctr_name']?></option>
+<?php } ?>
+</select>
+
+<button class="btn btn-sm btn-success col-1 my-auto ml-2">แก้ไข</button>
 </div>
-
-
-
 
 
 </form>

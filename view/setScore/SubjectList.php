@@ -117,51 +117,36 @@ else{
     </div>
 </nav>
 <h3>จักการผลการเรียน</h3>
-<a class="btn btn-primary btn-sm mt-2" href="../criteria/SetCriteria.php">ตั้งเกณฑ์คะแนน</a>
+<a class="btn btn-success btn-sm mt-2" href="../criteria/SetCriteria.php">+ เพิ่มเกณฑ์คะแนน</a>
 <div class="row">
-<div class="card mt-2 col-3 ml-3" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">เกณฑ์คะแนน [ค่าตั้งต้น]</h5>
-    <h6>A > 80</h6>
-    <h6>B+ > 75</h6>
-    <h6>B > 70</h6>
-    <h6>C+ > 65</h6>
-    <h6>C > 60</h6>
-    <h6>D+ > 55</h6>
-    <h6>D > 50</h6>
-    <h6>F : ไม่ผ่าน</h6>
-  </div>
-</div>
+<?php 
 
+$sqlcheck = "SELECT DISTINCT `ctr_number` FROM `criteria_tb`";
+    $querycheck = $conn->query($sqlcheck);
+    for($i = 1;$i<=$querycheck->num_rows;$i++){
+?>
 <div class="card mt-2 col-3 ml-3" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">เกณฑ์คะแนน</h5>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6>F : ไม่ผ่าน</h6>
-    <a class="btn btn-primary btn-sm mt-2" href="../criteria/SetCriteria.php">ตั้งเป็นค่าตั้งต้น</a>
-  </div>
-</div>
+  <?php 
+    $sqlCriteria = "SELECT DISTINCT ctr_number,ctr_name FROM `criteria_tb` WHERE ctr_number = '".$i."'";
+    $queryCriteria = $conn->query($sqlCriteria); 
 
-<div class="card mt-2 col-3 ml-3" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">เกณฑ์คะแนน</h5>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6></h6>
-    <h6>F : ไม่ผ่าน</h6>
-    <a class="btn btn-primary btn-sm mt-2" href="../criteria/SetCriteria.php">ตั้งเป็นค่าตั้งต้น</a>
+while($resultCriteria = $queryCriteria->FETCH_ASSOC()){ 
+    ?>
+    <h5 class="card-title">  <?php   if($i == 1){ echo $resultCriteria['ctr_name']." ".'[ค่าตั้งต้น]';}else{echo $resultCriteria['ctr_name'];} ?></h5>
+    <a class="btn btn-outline-info btn-sm" href="../criteria/EditCriteria.php?CTID=<?php echo $i; ?>">แก้ไข</a>
+<?php if($i != 1 ){?>
+    <td><a class="btn btn-outline-secondary btn-sm" href="JavaScript:if(confirm('แน่ใจนะ ?') == true){window.location='../../control/criteria/SetMain.php?id=<?php echo $resultCriteria["ctr_number"];?>';}">ตั้งเป็นค่าหลัก</a></td>
+<td><a class="btn btn-danger btn-sm" href="JavaScript:if(confirm('คุณแน่ใจแล้วใช่ไหม?') == true){window.location='../../control/criteria/Delcriterria.php?id=<?php echo $resultCriteria["ctr_number"];?>';}">ลบ</a></td>
+<?php } ?>
+<?php } ?>
+
+
   </div>
 </div>
+<?php } ?>
+
+
 
 </div>
 
@@ -206,7 +191,6 @@ for($i=0;$i<5;$i++) {
         <tr>
             <th class="text-center" scope="col">รหัสวิชา</th>
             <th scope="col">รายวิชา</th>
-            <th class="text-center" scope="col">เกณฑ์คะแนน</th>
             <th class="text-center" scope="col">จัดการ</th>
           </tr>
         </thead>
@@ -237,7 +221,6 @@ for($i=0;$i<5;$i++) {
                 while($row = $queryshow->fetch_assoc()){ ?>
                   <td class="text-center"><?php echo $row['Sub_Code']; ?></td>
                   <td><?php echo $row['Sub_Name']; ?></td> 
-                    <td></td>
                   <td class="text-center"><a class="btn btn-dark btn-sm" href="./ManagerGrade.php?SJ_ID=<?php echo $row['Sub_Code']; ?>">จัดการ</a></td>
                 </tr>
                 <?php } ?>

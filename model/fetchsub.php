@@ -3,6 +3,7 @@ session_start();
     include('./connect.php');
     mysqli_set_charset($conn, "utf8");
     $output ='';
+    error_reporting(0);
 
 if(isset($_POST["query"]))
 {
@@ -62,7 +63,7 @@ error_reporting(0);
       <td class="text-left">'.$row["Sub_Name"].'</td>
       <td>'.$row["tc_name"].'</td>
       <td><a class="btn btn-sm btn-primary" href="../managerProgram/ManagerProgram.php?CosId='.$row['Cos_id'].'&ID='.$row['Cos_code'].'">แก้ไข</a></td>
-      <td><a class="btn btn-sm btn-danger" href="JavaScript:if(confirm(Confirm Delete?)== true){window.location=../control/program/DelProgram.php?"}">ลบ</a></td>
+      <td><a class="btn btn-sm btn-danger" href="JavaScript:if(confirm("Confirm Delete?")== true){window.location=../control/program/DelProgram.php?"}">ลบ</a></td>
      </tr>
     ';
    }
