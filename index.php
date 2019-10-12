@@ -55,13 +55,20 @@ $_SESSION['decode'] = '';
                         <form name="login" method = "POST" action = "./control/login/CheckLogin.php">
                             <div class="form-group">
                               <label for="txtuser">ชื่อผู้ใช้งาน</label>
-                              <input type="text" name="txtuser" id="txtuser" class="form-control" placeholder="Username" required autofocus>
+                            
+                            
+                            <!-- check pattern between admin and teacher -->
+                              <input type="text" name="txtuser" id="txtuser" class="form-control" placeholder="Username"   
+                              pattern="(?=.*\d)(?=.*[a-z]).{5,20}"title="Must contain 5 to 20 characters" required autofocus>
+
+
+     <label for="verified" class=' col-form-label col-md-15' style="color:Tomato;">* Must contain at least one number, one uppercase, lowercase letter and at least 8 or more characters</label>
                             </div>
                             <div class="form-group">
                               <label for="txtPass">รหัสผ่าน</label>
                               <input type="password" name="txtPass" id="txtPass" class="form-control" placeholder="Password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm btn-block">เข้าสู่ระบบ</button>
+                            <button type="submit" name="btnlogin" class="btn btn-primary btn-sm btn-block">เข้าสู่ระบบ</button>
                             <a href = "./view/forgetPass/ForgetPass.php" type="text" class="btn btn-secondary btn-sm btn-block">ลืมรหัสผ่าน ?</a>
                           </form>
                     </div>
@@ -100,5 +107,29 @@ $_SESSION['decode'] = '';
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+
+
+<!-- SCRIPTS -->
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./securitysc"></script>
+
+
+				
+
+<!-- Password Visibilty-->
+<script>
+function myFunction() {
+  var x = document.getElementById("T_Pass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
+
 
 </html>

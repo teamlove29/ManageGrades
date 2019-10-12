@@ -15,17 +15,23 @@ if (isset($_POST['submit'])){
 
     include_once('../../model/connect.php');
     $check = $_POST['idcard'];
-    $sql = "SELECT * FROM `teacher_tb` WHERE tc_code = '".$_SESSION['id']."'";
+
+    //check username from 0-11 : from 60122660130yada to 60122660130
+    $checkCodeStr = substr($_SESSION['id'],0,11);
+    $sql = "SELECT * FROM `teacher_tb` WHERE tc_code = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query->fetch_assoc();
     $checkstr = substr($result['tc_idCard'],9);
 
-    if($check == $checkstr ){
+    if($check == $checkstr && $result['tc_code'] == $checkCodeStr){
         header('location:../main/Main.php');
+
     }
     else {
+
         session_destroy();
         header( "location: ../../index.php?susccess=2");
+      
     }
 }   
 
