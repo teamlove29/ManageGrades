@@ -17,18 +17,18 @@ if (isset($_POST['submit'])){
     $check = $_POST['idcard'];
 
     //check username from 0-11 : from 60122660130yada to 60122660130
-    $checkCodeStr = substr($_SESSION['id'],0,11);
+    $checkCodeStr = substr($_SESSION['id'],0,5);
     $sql = "SELECT * FROM `teacher_tb` WHERE tc_code = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query->fetch_assoc();
     $checkstr = substr($result['tc_idCard'],9);
 
     if($check == $checkstr && $result['tc_code'] == $checkCodeStr){
+
         header('location:../main/Main.php');
 
     }
     else {
-
         session_destroy();
         header( "location: ../../index.php?susccess=2");
       
@@ -48,7 +48,7 @@ if (isset($_POST['submit'])){
     <div class="form-group row ">
     <label for="idcard" class=' col-form-label col-sm-7'>กรอกรหัสบัตรประชาชน 4 ตัวท้าย</label>
     <div class="col-sm-5">
-    <input type="text" class='form-control  ' id='idcard' name='idcard' >
+    <input type="text" class='form-control  ' id='idcard' name='idcard' pattern="(?=.*\d).{4}" title="Must contain 4 characters only" required autofocus>
     </div>
     </div>
     
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])){
 
 
 </div>
-<input type="submit" name='submit' class='btn btn-success col-3 m-auto' value='เข้าสู่ระบบ'>
+<input type="submit" name='submit' class='btn btn-success col-3 m-auto'   value='เข้าสู่ระบบ'>
 </form>
 </div>
 </div>    
@@ -67,5 +67,6 @@ if (isset($_POST['submit'])){
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../securitysc"></script>
 </body>
 </html>

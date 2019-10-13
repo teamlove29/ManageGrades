@@ -2,7 +2,8 @@
 session_start();
 include('../../model/connect.php');
 if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
+    $checkCodeStr = substr($_SESSION['id'],0,5);
+    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query -> FETCH_ASSOC();
     $name = $result['tc_name'];

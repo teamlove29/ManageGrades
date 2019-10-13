@@ -122,7 +122,9 @@ else{
                     <label for="txtpass"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสผ่านเดิม : </label>
                     <div class="col-sm-5">
-                        <input type="password" name="txtpass" class="form-control form-control-sm" id="txtpass" required></div>
+                        <input type="password" name="txtpass" class="form-control form-control-sm" id="txtpass" 
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus></div>
+        
                 </div>
                
                 <!-- รหัสผ่านใหม่ -->
@@ -130,14 +132,18 @@ else{
                     <label for="txtpassnew"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสผ่านใหม่ : </label>
                     <div class="col-sm-5">
-                        <input type="password" name="txtpassnew" class="form-control form-control-sm" id="txtpassnew" required></div>
+                        <input type="password" name="txtpassnew" class="form-control form-control-sm" id="txtpassnew" 
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus></div>
+             
                     </div>
                 <!-- ยืนยันรหัสผ่านใหม่ -->
                 <div class="form-group row">
                     <label for="txtpassnew2"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ยืนยันรหัสผ่านใหม่ : </label>
                     <div class="col-sm-5">
-                        <input type="password" name="txtpassnew2" class="form-control form-control-sm" id="txtpassnew2" required></div>
+                        <input type="password" name="txtpassnew2" class="form-control form-control-sm" id="txtpassnew2" 
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus></div> 
+                        <input type="checkbox" onclick="myShowpass()">Show Password
                 </div>
 
      
@@ -165,6 +171,27 @@ else{
                     $('#sidebar').toggleClass('active');
                 });
             });
+        </script>
+
+        <script src="../../securitysc"></script>
+
+        <script>
+        function myShowpass() {
+        var oldpass = document.getElementById("txtpass");
+        var newpass1 = document.getElementById("txtpassnew");
+        var newpass2 = document.getElementById("txtpassnew2");
+        
+        if (newpass1.type === "password" && newpass2.type === "password" && oldpass.type === "password") {
+            oldpass.type = "text";
+            newpass1.type = "text";
+            newpass2.type = "text";
+
+        } else {
+            oldpass.type = "password";
+            newpass1.type = "password";
+            newpass2.type = "password";
+        }
+        }
         </script>
 </body>
 

@@ -59,14 +59,16 @@ $_SESSION['decode'] = '';
                             
                             <!-- check pattern between admin and teacher -->
                               <input type="text" name="txtuser" id="txtuser" class="form-control" placeholder="Username"   
-                              pattern="(?=.*\d)(?=.*[a-z]).{5,20}"title="Must contain 5 to 20 characters" required autofocus>
+                              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus>
 
 
      <label for="verified" class=' col-form-label col-md-15' style="color:Tomato;">* Must contain at least one number, one uppercase, lowercase letter and at least 8 or more characters</label>
                             </div>
                             <div class="form-group">
                               <label for="txtPass">รหัสผ่าน</label>
-                              <input type="password" name="txtPass" id="txtPass" class="form-control" placeholder="Password" required>
+                              <input type="password" name="txtPass" id="txtPass" class="form-control" placeholder="Password" 
+                              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus>
+                              <input type="checkbox" onclick="myShowPLogin()">Show Password
                             </div>
                             <button type="submit" name="btnlogin" class="btn btn-primary btn-sm btn-block">เข้าสู่ระบบ</button>
                             <a href = "./view/forgetPass/ForgetPass.php" type="text" class="btn btn-secondary btn-sm btn-block">ลืมรหัสผ่าน ?</a>
@@ -121,12 +123,12 @@ $_SESSION['decode'] = '';
 
 <!-- Password Visibilty-->
 <script>
-function myFunction() {
-  var x = document.getElementById("T_Pass");
-  if (x.type === "password") {
-    x.type = "text";
+function myShowPLogin() {
+  var showpass = document.getElementById("txtPass");
+  if (showpass.type === "password") {
+    showpass.type = "text";
   } else {
-    x.type = "password";
+    showpass.type = "password";
   }
 }
 </script>
