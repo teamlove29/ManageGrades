@@ -34,7 +34,15 @@ while($row = $querytool ->FETCH_ASSOC()){
 $grade = $_POST['txtscore'];
 
        if(($grade>100)||($grade<0)) {    
-         echo "เกรดที่ได้  : ไม่สามารถคิดเกรดได้ คะแนนเกิน".'<br>';   
+         echo "
+         <script type=\"text/javascript\">
+            $G(".$grade.").addEvent(maxVal);
+            var maxVal = function(event){
+            if(parseFloat(GEvent.element(event).value) > 100 || parseFloat(GEvent.element(event).value) < 0){
+            alert('ไม่สามารถกรอกคะแนนเกิน 100 หรือต่ำกว่า 0 ได้!');
+            };
+        };
+         </script>";  
       }
       else if (($grade>=$scoreA)&&($grade<=100)) {    
          $gradeSum = "A";   
@@ -95,3 +103,4 @@ $querycheck = $conn->query($sqlcheck);
 
 mysqli_close($conn);
 ?>
+

@@ -4,7 +4,8 @@ include_once('../../model/connect.php');
 error_reporting(0);
 
 if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
+    $checkCodeStr = substr($_SESSION['id'],0,5);
+    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query -> FETCH_ASSOC();
     $name = $result['tc_name'];
@@ -123,7 +124,8 @@ $result = $query->FETCH_ASSOC();
                     <label for="txtcode"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสเกณฑ์ : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode"  required></div>
+                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode"  
+                        pattern="[0-9].{0,4}" title="Must contain only 5 number" required autofocus></div>
                 </div>
                  <!-- ชื่อ -->
                  <div class="form-group row">
@@ -131,7 +133,8 @@ $result = $query->FETCH_ASSOC();
         <label for="txtname"
             class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อเกณฑ์ : </label>
         <div class="col-sm-5">
-            <input type="text" name="txtname" class="form-control form-control-sm" id="txtname"  required></div>
+            <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" 
+            pattern="[a-zA-Zก-ฮ0-9].{1,50}" title="Must be only letters " required autofocus></div>
     </div>
                
                 <!-- A -->
@@ -139,49 +142,56 @@ $result = $query->FETCH_ASSOC();
                     <label for="txtA"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">A : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtA" class="form-control form-control-sm" id="txtA"  required></div>
+                        <input type="text" name="txtA" class="form-control form-control-sm" id="txtA"  
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- B+ -->
                 <div class="form-group row">
                     <label for="txtBpuls"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">B+ : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtBpuls" class="form-control form-control-sm" id="txtBpuls"  required></div>
+                        <input type="text" name="txtBplus" class="form-control form-control-sm" id="txtBplus"  
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- B -->
                 <div class="form-group row">
                     <label for="txtB"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">B : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtB" class="form-control form-control-sm" id="txtB"  required></div>
+                        <input type="text" name="txtB" class="form-control form-control-sm" id="txtB"  
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- C+ -->
                 <div class="form-group row">
                     <label for="txtCpuls"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">C+ : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtCpuls" class="form-control form-control-sm" id="txtCpuls"  required></div>
+                        <input type="text" name="txtCplus" class="form-control form-control-sm" id="txtCplus"  
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- C -->
                 <div class="form-group row">
                     <label for="txtC"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">C : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtC" class="form-control form-control-sm" id="txtC"  required></div>
+                        <input type="text" name="txtC" class="form-control form-control-sm" id="txtC"  
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- D+ -->
                 <div class="form-group row">
                     <label for="txtDpuls"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">D+ : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtDpuls" class="form-control form-control-sm" id="txtDpuls"  required></div>
+                        <input type="text" name="txtDplus" class="form-control form-control-sm" id="txtDplus" 
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100"  required autofocus></div>
                     </div>
                               <!-- D -->
                 <div class="form-group row">
                     <label for="txtD"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">D : </label>
                     <div class="col-sm-2">
-                        <input type="text" name="txtD" class="form-control form-control-sm" id="txtD"  required></div>
+                        <input type="text" name="txtD" class="form-control form-control-sm" id="txtD"  
+                        pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                
      
@@ -210,6 +220,8 @@ $result = $query->FETCH_ASSOC();
                 });
             });
         </script>
+
+        <script src="../../securitysc"></script>
 </body>
 
 </html>

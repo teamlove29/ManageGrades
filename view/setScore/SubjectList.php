@@ -2,10 +2,11 @@
 session_start();
 include('../../model/connect.php');
 
+    $checkCodeStr = substr($_SESSION['id'],0,5);
     $sql ="SELECT * FROM `teacher_tb` 
     INNER JOIN course_tb
     ON teacher_tb.tc_code = course_tb.Teach_code
-    WHERE teacher_tb.tc_code = '".$_SESSION['id']."'";
+    WHERE teacher_tb.tc_code = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query -> FETCH_ASSOC();
     $name = $result['tc_name'];
@@ -116,7 +117,7 @@ else{
         </button>
     </div>
 </nav>
-<h3>จักการผลการเรียน</h3>
+<h3>จัดการผลการเรียน</h3>
 <a class="btn btn-success btn-sm mt-2" href="../criteria/SetCriteria.php">+ เพิ่มเกณฑ์คะแนน</a>
 <div class="row">
 <?php 
@@ -206,7 +207,7 @@ for($i=0;$i<5;$i++) {
                 ON teacher_tb.tc_code = course_tb.Teach_code
                 INNER JOIN subject_tb
                 ON subject_tb.Sub_code = course_tb.Sub_Code
-                WHERE teacher_tb.tc_code = '".$_SESSION['id']."' AND course_tb.Cos_term = '".$_GET['txtkey']."'";
+                WHERE teacher_tb.tc_code = '".$checkCodeStr."' AND course_tb.Cos_term = '".$_GET['txtkey']."'";
                 }
                 else{
                     $sqlshow ="SELECT * FROM `teacher_tb` 
@@ -214,7 +215,7 @@ for($i=0;$i<5;$i++) {
                 ON teacher_tb.tc_code = course_tb.Teach_code
                 INNER JOIN subject_tb
                 ON subject_tb.Sub_code = course_tb.Sub_Code
-                WHERE teacher_tb.tc_code = '".$_SESSION['id']."' AND course_tb.Cos_term = '".$txtTerm."'";
+                WHERE teacher_tb.tc_code = '".$checkCodeStr."' AND course_tb.Cos_term = '".$txtTerm."'";
                 }
                 $queryshow = $conn->query($sqlshow);
                 

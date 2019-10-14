@@ -3,11 +3,11 @@ session_start();
 include '../../model/connect.php';
 $code = $_POST['txtcode'];
 $A = $_POST['txtA'];
-$Bplus = $_POST['txtBpuls'];
+$Bplus = $_POST['txtBplus'];
 $B = $_POST['txtB'];
-$Cplus = $_POST['txtCpuls'];
+$Cplus = $_POST['txtCplus'];
 $C = $_POST['txtC'];
-$Dplus = $_POST['txtDpuls'];
+$Dplus = $_POST['txtDplus'];
 $D = $_POST['txtD'];
 $name = $_POST['txtname'];
 

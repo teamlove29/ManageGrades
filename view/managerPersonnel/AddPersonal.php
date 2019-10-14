@@ -124,7 +124,8 @@ else{
                     <label for="txtcode"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสบุคลากร : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" required></div>
+                        <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" 
+                        pattern="[0-9].{4}" title="Must be only letters " required autofocus></div>
                 </div>
                
                 <!-- ชื่อ -->
@@ -132,28 +133,32 @@ else{
                     <label for="txtname"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อ : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" required></div>
+                        <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" 
+                        pattern="[a-zA-Zก-ฮ].{0,50}" title="Must be only letters " required autofocus></div>
                     </div>
                 <!-- เลขที่บัตรประจำตัวประชาชน -->
                 <div class="form-group row">
                     <label for="txtcard"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">เลขที่บัตรประจำตัวประชาชน : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtcard" class="form-control form-control-sm" id="txtcard" required></div>
+                        <input type="text" name="txtcard" class="form-control form-control-sm" id="txtcard" 
+                        pattern="[0-9].{12}" title="Must be only letters " required autofocus></div>
                 </div>
                                 <!-- วันเกิด -->
                                 <div class="form-group row">
                     <label for="txtcatxtbirthd"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">วันเกิด : </label>
                     <div class="col-sm-5">
-                        <input type="date" name="txtbirth" class="form-control form-control-sm" id="txtbirth" required></div>
+                        <input type="date" name="txtbirth" class="form-control form-control-sm" id="txtbirth" 
+                        required autofocus></div>
                 </div>
                                 <!-- อีเมล์ -->
                                 <div class="form-group row">
                     <label for="txtemail"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">อีเมล์ : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtemail" class="form-control form-control-sm" id="txtemail" required></div>
+                        <input type="text" name="txtemail" class="form-control form-control-sm" id="txtemail" 
+                        required autofocus></div>
                 </div>
      
             <div class="row">

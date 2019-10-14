@@ -2,10 +2,11 @@
 session_start();
 include('../../model/connect.php');
 
+    $checkCodeStr = substr($_SESSION['id'],0,5);
     $sql ="SELECT * FROM `teacher_tb` 
     INNER JOIN course_tb
     ON teacher_tb.tc_code = course_tb.Teach_code
-    WHERE teacher_tb.tc_code = '".$_SESSION['id']."'";
+    WHERE teacher_tb.tc_code = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query -> FETCH_ASSOC();
     $name = $result['tc_name'];
@@ -119,8 +120,9 @@ $resultcheck = $querycheck->FETCH_ASSOC();
 <form action="../../control/grade/Addscore.php" method="POST">
 
 <div class="row ">
-<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtscore" id="" placeholder="คะแนน" 
-<?php if($_GET['socre']){ ?> value="<?php echo $_GET['socre']; ?>" <?php } ?> required>
+<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtscore" id="txtscore" placeholder="คะแนน" 
+pattern="[0-9].{0,3}"title="Must be number only from 1-100"  
+<?php if($_GET['socre']){ ?> value="<?php echo $_GET['socre']; ?>" <?php } ?> required autofocus>
 <button class="btn btn-success btn-sm m-1 col-1">บันทึก</button> 
 </div>
 
@@ -166,6 +168,20 @@ $resultcheck = $querycheck->FETCH_ASSOC();
                 });
             });
         </script>
+
+        <!-- Over Value such -1 or 101 -->
+        <script type="text/javascript">
+        $G("txtscore").addEvent("keyup",maxVal);
+               
+        var maxVal = function(){
+           if(parseFloat(GEvent.element().value) > 100 || parseFloat(GEvent.element().value) < 0){
+               alert('ไม่สามารถกรอกคะแนนเกิน 100 หรือต่ำกว่า 0 ได้!');
+           };
+       };
+        </script>
+
+
+
 </body>
 
 </html>

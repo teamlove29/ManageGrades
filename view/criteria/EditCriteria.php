@@ -4,7 +4,8 @@ include_once('../../model/connect.php');
 // error_reporting(0);
 
 if($_SESSION['Type_id'] == 2){
-    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$_SESSION['id']."'";
+    $checkCodeStr = substr($_SESSION['id'],0,5);
+    $sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$checkCodeStr."'";
     $query = $conn->query($sql);
     $result = $query -> FETCH_ASSOC();
     $name = $result['tc_name'];
@@ -136,7 +137,8 @@ $query = $conn->query($sql);
         <label for="txtname"
             class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อเกณฑ์ : </label>
         <div class="col-sm-5">
-            <input type="text" name="txtname" class="form-control form-control-sm" id="txtname"  value="<?php echo  $resultname['ctr_name']; ?>" required></div>
+            <input type="text" name="txtname" class="form-control form-control-sm" id="txtname"  value="<?php echo  $resultname['ctr_name']; ?>"
+            pattern="[a-zA-Zก-ฮ0-9].{1,50}" title="Must be only letters " required autofocus></div>
     </div>
 
                <?php while($result = $query->FETCH_ASSOC()) {?>
@@ -146,7 +148,8 @@ $query = $conn->query($sql);
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold"><?php echo $result['ctr_font']; ?> : </label>
                     <div class="col-sm-2">
                         <input  type="text" name="<?php echo 'txt'.$result['ctr_font']; ?>" class="form-control form-control-sm" id="<?php echo 'txt'.$result['ctr_font']; ?>" 
-                                value="<?php echo $result['ctr_score'] ?>"  required></div>
+                                value="<?php echo $result['ctr_score'] ?>"  
+                                pattern="[0-9].{0,3}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
 
                <?php } ?>
@@ -176,6 +179,8 @@ $query = $conn->query($sql);
                 });
             });
         </script>
+
+        <script src="../../securitysc"></script>
 </body>
 
 </html>
