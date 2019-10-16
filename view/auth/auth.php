@@ -48,7 +48,7 @@ if (isset($_POST['submit'])){
     <div class="form-group row ">
     <label for="idcard" class=' col-form-label col-sm-7'>กรอกรหัสบัตรประชาชน 4 ตัวท้าย</label>
     <div class="col-sm-5">
-    <input type="text" class='form-control  ' id='idcard' name='idcard' pattern="(?=.*\d).{4}" title="Must contain 4 characters only" required autofocus>
+    <input type="text" class='form-control  ' id='idcard' name='idcard' pattern="[0-9]a-zA-Zก-ฮ.{4}" title="Must contain 4 characters only" required autofocus>
     </div>
     </div>
     

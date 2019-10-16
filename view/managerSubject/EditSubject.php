@@ -121,7 +121,8 @@ $result = $query->FETCH_ASSOC();
                     <label for="txtcode"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสวิชา : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtcode" class="form-control form-control-sm" value="<?php echo $result['Sub_code'] ?>" id="txtcode" required></div>
+                        <input type="text" name="txtcode" class="form-control form-control-sm" value="<?php echo $result['Sub_code'] ?>" id="txtcode" 
+                        pattern="[0-9]a-zA-Zก-ฮ.{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus></div>
                 </div>
                
                 <!-- ชื่อรายวิชา -->
@@ -129,14 +130,16 @@ $result = $query->FETCH_ASSOC();
                     <label for="txtname"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อรายวิชา : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtname" class="form-control form-control-sm" value="<?php echo $result['Sub_Name'] ?>" id="txtname" required></div>
+                        <input type="text" name="txtname" class="form-control form-control-sm" value="<?php echo $result['Sub_Name'] ?>" id="txtname" 
+                        pattern="[a-zA-Zก-ฮ0-9]@#$%^&*!()_-+=\|[]{}/?<>.{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus></div>
                     </div>
                 <!-- หน่วยกิต -->
                 <div class="form-group row">
                     <label for="txtcredit"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">หน่วยกิต : </label>
                     <div class="col-sm-5">
-                        <input type="text" name="txtcredit" class="form-control form-control-sm" value="<?php echo $result['Sub_Credit'] ?>" id="txtcredit" required></div>
+                        <input type="text" name="txtcredit" class="form-control form-control-sm" value="<?php echo $result['Sub_Credit'] ?>" id="txtcredit" 
+                        pattern="[0-9]ก-ฮa-zA-Z.{0,3}"title="Must contain 1 number" required autofocus></div>
                 </div>
      
             <div class="row">

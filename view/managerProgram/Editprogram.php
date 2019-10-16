@@ -124,8 +124,8 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสแผนการเรียน
                         :</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control form-control-sm" name="courseCode" id="courseCode" required
-                        value="<?php echo $result['Cos_code'];?>">
+                        <input type="text" class="form-control form-control-sm" name="courseCode" id="courseCode" 
+                        value="<?php echo $result['Cos_code'];?>" pattern="[0-9]a-zA-Zก-ฮ.{4}"title="Must contain 5 numbers" required autofocus>
                     </div>
                 </div>
                 <!-- ชื่อแผนการเรียน  -->
@@ -133,8 +133,8 @@ $result = $query->FETCH_ASSOC();
                     <label for="courseName"
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อแผนการเรียน : </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control form-control-sm" name="courseName" id="courseName" required 
-                        value="<?php echo $result['Cos_name'];?>">
+                        <input type="text" class="form-control form-control-sm" name="courseName" id="courseName" 
+                        value="<?php echo $result['Cos_name'];?>" pattern="[0-9]a-zA-Zก-ฮ.{4}"title="Must contain 5 numbers" required autofocus>
                     </div>
                 </div>
 

@@ -42,7 +42,8 @@ error_reporting(0);
 
                         <form name="forgotpassword" method = "POST" action = "../../control/forgetPass/ForgerPass.php">
                             <div class="form-group">
-                              <input type="text" name="txtcode" id="txtcode" class="form-control" placeholder="รหัสบุคลากร" required autofocus>
+                              <input type="text" name="txtcode" id="txtcode" class="form-control" placeholder="รหัสบุคลากร" 
+                              pattern="[0-9]a-zA-Zก-ฮ.{0,4}" title="Must be only letters " required autofocus>
                             </div>
                             <div class="form-group">
                               <input type="email" name="txtemail" id="txtemail" class="form-control" placeholder="อีเมล์" required>

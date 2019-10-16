@@ -124,7 +124,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสบุคลากร : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" value="<?php echo $result['tc_code'] ?>" 
-                        pattern="[0-9].{4}" title="Must be only letters " required autofocus></div>
+                        pattern="[0-9]a-zA-Zก-ฮ.{0,4}" title="Must be only letters " required autofocus></div>
                 </div>
                
                 <!-- ชื่อ -->
@@ -141,7 +141,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">เลขที่บัตรประจำตัวประชาชน : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcard" class="form-control form-control-sm" id="txtcard" value="<?php echo $result['tc_idCard'] ?>" 
-                        pattern="[0-9].{12}" title="Must be only letters " required autofocus></div>
+                        pattern="[0-9]a-zA-Zก-ฮ.{12}" title="Must be only letters " required autofocus></div>
                 </div>
                                 <!-- วันเกิด -->
                                 <div class="form-group row">
