@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2019 at 07:59 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Oct 16, 2019 at 04:10 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -60,9 +60,9 @@ CREATE TABLE `course_tb` (
 --
 
 INSERT INTO `course_tb` (`Cos_id`, `Cos_term`, `Sub_Code`, `Teach_code`, `Cos_code`, `ctr_number`) VALUES
-(85, '1/2562', '5672602', '60122660130', 12345, 2),
-(86, '1/2562', '5673602', '60122660130', 12345, 1),
-(87, '1/2562', '5673605', '60122660130', 12345, 1);
+(85, '1/2562', '5672602', '50143', 12345, 1),
+(86, '1/2562', '5673602', '50143', 12345, 1),
+(87, '1/2562', '5673605', '50143', 12345, 12365);
 
 -- --------------------------------------------------------
 
@@ -83,20 +83,76 @@ CREATE TABLE `criteria_tb` (
 --
 
 INSERT INTO `criteria_tb` (`ctr_id`, `ctr_number`, `ctr_score`, `ctr_font`, `ctr_name`) VALUES
-(19, 2, '70', 'A', 'A = 70'),
-(20, 2, '65', 'B+', 'A = 70'),
-(21, 2, '60', 'B', 'A = 70'),
-(22, 2, '50', 'C+', 'A = 70'),
-(23, 2, '55', 'C', 'A = 70'),
-(24, 2, '45', 'D+', 'A = 70'),
-(25, 2, '40', 'D', 'A = 70'),
 (40, 1, '80', 'A', 'A = 80'),
 (41, 1, '75', 'B+', 'A = 80'),
 (42, 1, '70', 'B', 'A = 80'),
-(43, 1, '60', 'C+', 'A = 80'),
-(44, 1, '65', 'C', 'A = 80'),
+(43, 1, '65', 'C+', 'A = 80'),
+(44, 1, '60', 'C', 'A = 80'),
 (45, 1, '55', 'D+', 'A = 80'),
-(46, 1, '50', 'D', 'A = 80');
+(46, 1, '50', 'D', 'A = 80'),
+(82, 4, '100', 'A', 'ss'),
+(83, 4, '90', 'B+', 'ss'),
+(84, 4, '80', 'B', 'ss'),
+(85, 4, '60', 'C+', 'ss'),
+(86, 4, '70', 'C', 'ss'),
+(87, 4, '50', 'D+', 'ss'),
+(88, 4, '40', 'D', 'ss'),
+(89, 3, '90', 'A', 'กันนะ'),
+(90, 3, '80', 'B+', 'กันนะ'),
+(91, 3, '70', 'B', 'กันนะ'),
+(92, 3, '60', 'C+', 'กันนะ'),
+(93, 3, '50', 'C', 'กันนะ'),
+(94, 3, '40', 'D+', 'กันนะ'),
+(95, 3, '30', 'D', 'กันนะ'),
+(96, 2, '100', 'A', 'nanii'),
+(97, 2, '90', 'B+', 'nanii'),
+(98, 2, '80', 'B', 'nanii'),
+(99, 2, '70', 'C+', 'nanii'),
+(100, 2, '75', 'C', 'nanii'),
+(101, 2, '65', 'D+', 'nanii'),
+(102, 2, '60', 'D', 'nanii'),
+(103, 5, '100', 'A', 'พี่ชาย50'),
+(104, 5, '98', 'B+', 'พี่ชาย50'),
+(105, 5, '97', 'B', 'พี่ชาย50'),
+(106, 5, '75', 'C+', 'พี่ชาย50'),
+(107, 5, '80', 'C', 'พี่ชาย50'),
+(108, 5, '73', 'D+', 'พี่ชาย50'),
+(109, 5, '70', 'D', 'พี่ชาย50'),
+(110, 6, '70', 'A', 'กน65'),
+(111, 6, '#$', 'B+', 'กน65'),
+(112, 6, '68', 'B', 'กน65'),
+(113, 6, '67', 'C+', 'กน65'),
+(114, 6, '66', 'C', 'กน65'),
+(115, 6, '65', 'D+', 'กน65'),
+(116, 6, '@', 'D', 'กน65'),
+(117, 7, '100', 'A', 'กันนะ22'),
+(118, 7, '20@', 'B+', 'กันนะ22'),
+(119, 7, '15', 'B', 'กันนะ22'),
+(120, 7, '14', 'C+', 'กันนะ22'),
+(121, 7, '13', 'C', 'กันนะ22'),
+(122, 7, '12', 'D+', 'กันนะ22'),
+(123, 7, '11', 'D', 'กันนะ22'),
+(124, 8, '75', 'A', 'loo25'),
+(125, 8, '70', 'B+', 'loo25'),
+(126, 8, '65', 'B', 'loo25'),
+(127, 8, '60', 'C+', 'loo25'),
+(128, 8, '56', 'C', 'loo25'),
+(129, 8, '55', 'D+', 'loo25'),
+(130, 8, '5', 'D', 'loo25'),
+(131, 9, '30@', 'A', 'russian'),
+(132, 9, '25', 'B+', 'russian'),
+(133, 9, '20', 'B', 'russian'),
+(134, 9, '10', 'C+', 'russian'),
+(135, 9, '15', 'C', 'russian'),
+(136, 9, '9', 'D+', 'russian'),
+(137, 9, '8', 'D', 'russian'),
+(145, 10, '100', 'A', '13สนรส2541'),
+(146, 10, '90', 'B+', '13สนรส2541'),
+(147, 10, '80', 'B', '13สนรส2541'),
+(148, 10, '75', 'C+', '13สนรส2541'),
+(149, 10, '76', 'C', '13สนรส2541'),
+(150, 10, '74', 'D+', '13สนรส2541'),
+(151, 10, '101', 'D', '13สนรส2541');
 
 -- --------------------------------------------------------
 
@@ -119,9 +175,15 @@ CREATE TABLE `grade_tb` (
 INSERT INTO `grade_tb` (`grad_id`, `std_code`, `sub_code`, `GPA`, `grade_font`) VALUES
 (1, '60122660115', '5672202', 50, 'D'),
 (3, '60122660100', '5672202', 20, 'F'),
-(4, '60122660100', '5672602', 39, 'F'),
+(4, '60122660100', '5672602', 100, 'A'),
 (5, '60122660101', '5672602', 40, 'D'),
-(6, '60122660102', '5672602', 46, 'D+');
+(6, '60122660102', '5672602', 46, 'D+'),
+(7, '60122660103', '5672602', 48, 'D+'),
+(8, '60122660104', '5672602', 12, 'F'),
+(9, '60122660105', '5672602', 200, ''),
+(10, '60122660100', '5673605', 60, 'C+'),
+(11, '60122660107', '5672602', 101, ''),
+(12, '60122660108', '5672602', 110, '');
 
 -- --------------------------------------------------------
 
@@ -141,8 +203,10 @@ CREATE TABLE `member_tb` (
 --
 
 INSERT INTO `member_tb` (`mb_id`, `mb_user`, `mb_pass`, `mb_type`) VALUES
-(1, 'admin', 'YWRtaW4=', 1),
-(16, '60122660130', 'MTIzNA==', 2);
+(1, 'Admin1234', 'QWRtaW4xMjM0', 1),
+(16, '50143Yada', 'RGFkMTIzNA==', 2),
+(23, '265656', 'MjUxMjQxMzU0Mw==', 2),
+(24, '12345', 'VGFlMTIzNDU2', 2);
 
 -- --------------------------------------------------------
 
@@ -258,7 +322,9 @@ CREATE TABLE `teacher_tb` (
 --
 
 INSERT INTO `teacher_tb` (`tc_id`, `tc_code`, `tc_name`, `tc_idCard`, `tc_email`, `tc_date`) VALUES
-(10, '60122660130', 'ญาดา ตาเมืองมูล', '1520100104758', 'test@gmail.com', '1994-05-22');
+(10, '50143', 'ญาดา ตาเมืองมูล', '1520100104758', 'test@gmail.com', '1994-05-22'),
+(11, '265656', 'สนส jj', '152990313543', 'nanthwayt@gmail.com', '1998-12-25'),
+(12, '12345', 'are', '1529900975815', 'Fernanthwayt@gmail.com', '1990-12-25');
 
 --
 -- Indexes for dumped tables
@@ -326,19 +392,19 @@ ALTER TABLE `course_tb`
 -- AUTO_INCREMENT for table `criteria_tb`
 --
 ALTER TABLE `criteria_tb`
-  MODIFY `ctr_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `ctr_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `grade_tb`
 --
 ALTER TABLE `grade_tb`
-  MODIFY `grad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `grad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `member_tb`
 --
 ALTER TABLE `member_tb`
-  MODIFY `mb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `mb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `register_tb`
@@ -362,7 +428,7 @@ ALTER TABLE `subject_tb`
 -- AUTO_INCREMENT for table `teacher_tb`
 --
 ALTER TABLE `teacher_tb`
-  MODIFY `tc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `tc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
