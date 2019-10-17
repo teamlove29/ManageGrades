@@ -124,7 +124,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสวิชา : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" 
-                        pattern="[0-9]a-zA-Zก-ฮ.{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus></div>
+                        pattern="^[0-9\s].{6}"title="Must contain 7 numbers" required autofocus></div>
                 </div>
                
                 <!-- ชื่อรายวิชา -->
@@ -133,7 +133,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อรายวิชา : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" 
-                        pattern="[a-zA-Zก-ฮ0-9]@#$%^&*!()_-+=\|[]{}/?<>.{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus></div>
+                        pattern="^[a-zA-Zก-ฮ0-9].{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus></div>
                     </div>
                 <!-- หน่วยกิต -->
                 <div class="form-group row">
@@ -141,7 +141,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">หน่วยกิต : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcredit" class="form-control form-control-sm" id="txtcredit" 
-                        pattern="[0-9]ก-ฮa-zA-Z.{0,3}"title="Must contain 1 number" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,3}"title="Must contain 1 number" required autofocus></div>
                 </div>
      
             <div class="row">

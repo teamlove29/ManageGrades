@@ -50,6 +50,7 @@ while($row = $querytool->FETCH_ASSOC()){
     $grade = $row['GPA'];
     if(($grade>100)||($grade<0)) {    
       echo "เกรดที่ได้  : ไม่สามารถคิดเกรดได้ คะแนนเกิน".'<br>';   
+      $grade = NULL;
    }
    else if (($grade>=$scoreA)&&($grade<=100)) {    
       $gradeSum = "A";   

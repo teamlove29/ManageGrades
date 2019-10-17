@@ -125,7 +125,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสบุคลากร : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" 
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,4}" title="Must be only letters " required autofocus></div>
+                        pattern="[0-9].{4}" title="Must be only 5 numbers" required autofocus></div>
                 </div>
                
                 <!-- ชื่อ -->
@@ -134,7 +134,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อ : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" 
-                        pattern="[a-zA-Zก-ฮ].{0,50}" title="Must be only letters " required autofocus></div>
+                        pattern="^[a-zA-Zก-ฮ\s].{1,50}" title="Must be only letters " required autofocus></div>
                     </div>
                 <!-- เลขที่บัตรประจำตัวประชาชน -->
                 <div class="form-group row">
@@ -142,7 +142,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">เลขที่บัตรประจำตัวประชาชน : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcard" class="form-control form-control-sm" id="txtcard" 
-                        pattern="[0-9]a-zA-Zก-ฮ.{12}" title="Must be only letters " required autofocus></div>
+                        pattern="^[0-9].{12}" title="Must contain 13 numbers " required autofocus></div>
                 </div>
                                 <!-- วันเกิด -->
                                 <div class="form-group row">

@@ -40,7 +40,7 @@ error_reporting(0);
 <!-- end alert  -->
                         <h5 class="card-title text-center">รหัสผ่านของคุณคือ</h5>
                             <div class="form-group">
-                              <input type="text" name="txtemail" id="txtemail" class="form-control text-center" value="<?php echo $_SESSION['decode']; ?>" readonly>
+                              <input type="text" name="txtdecode" id="txtdecode" class="form-control text-center" value="<?php echo $_SESSION['decode']; ?>" readonly>
                             </div>
                             <a href = "../../index.php" type="text" class="btn btn-secondary btn-sm btn-block">กลับหน้าหลัก ?</a>
                     </div>

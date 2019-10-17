@@ -124,7 +124,7 @@ $result = $query->FETCH_ASSOC();
                         :</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control form-control-sm" name="courseCode" id="courseCode" 
-                        pattern="[0-9]a-zA-Zก-ฮ.{4}"title="Must contain 5 numbers" required autofocus>
+                        pattern="^[0-9].{4}"title="Must contain 5 numbers" required autofocus>
                     </div>
                 </div>
                 <!-- ชื่อแผนการเรียน  -->
@@ -133,7 +133,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อแผนการเรียน : </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control form-control-sm" name="courseName" id="courseName" 
-                        pattern="[0-9a-zA-Zก-ฮ]@/$%^&*-+\<>^!_=.{2,50}"title="Must contain at least 2 characters to 50 characters" required autofocus >
+                        pattern="^[0-9a-zA-Zก-ฮ].{2,50}"title="Must contain at least 2 characters to 50 characters" required autofocus >
                     </div>
                 </div>
 

@@ -7,15 +7,21 @@
 // $decode = base64_decode($encode);
     $code = $_POST['txtcode'];
     $email = $_POST['txtemail'];
+    
     // $password = base64_encode($enCodePass);
 
-$sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$code."' AND `tc_email` = '".$email."'";
+$sql ="SELECT * FROM `member_tb` WHERE `mb_user` = '".$code."'";
 $query = $conn->query($sql);
+
+
 if($row = $query->num_rows > 0){
-    $sql ="SELECT * FROM `member_tb` WHERE `mb_user` = '".$code."'";
-    $query = $conn->query($sql);
-    $result = $query->FETCH_ASSOC();
-    $decode = base64_decode($result['mb_pass']);
+    // $checkCodeStr = substr($_POST['txtcode'],0,5);
+    // echo $checkCodeStr;
+    // return false;
+    $sql2 ="SELECT * FROM `member_tb` WHERE `mb_user` = '".$code."'";
+    $query2 = $conn->query($sql2);
+    $result2 = $query2->FETCH_ASSOC();
+    $decode = base64_decode($result2['mb_pass']);
     $_SESSION['decode'] = $decode;
     header( "location: ../../view/forgetPass/showPass.php?");
 

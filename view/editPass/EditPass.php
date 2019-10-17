@@ -133,7 +133,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสผ่านใหม่ : </label>
                     <div class="col-sm-5">
                         <input type="password" name="txtpassnew" class="form-control form-control-sm" id="txtpassnew"  
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus>
+                        pattern="[a-zA-Z0-9].{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus>
                         <label for="verified" class="col-form-label col-md-12" style="color:Tomato; ">
                         * Must contain at least one number, one uppercase, lowercase letter and at least 5 or more characters
                         </label>
@@ -146,7 +146,7 @@ else{
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ยืนยันรหัสผ่านใหม่ : </label>
                     <div class="col-sm-5">
                         <input type="password" name="txtpassnew2" class="form-control form-control-sm" id="txtpassnew2" 
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus>
+                        pattern="[a-zA-Z0-9].{5,20}"title="Must contain at least 1 Capital letter, 1 small letter and 5 to 20 characters" required autofocus>
                         <label for="verified" class="col-form-label col-md-12" style="color:Tomato; ">
                         * Must contain at least one number, one uppercase, lowercase letter and at least 5 or more characters
                         </label>

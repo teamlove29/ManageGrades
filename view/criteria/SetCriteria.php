@@ -125,7 +125,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสเกณฑ์ : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode"  
-                        pattern="[0-9].{0,4}" title="Must contain only 5 number" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,4}" title="Must contain only 5 number" required autofocus></div>
                 </div>
                  <!-- ชื่อ -->
                  <div class="form-group row">
@@ -143,7 +143,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">A : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtA" class="form-control form-control-sm" id="txtA"  
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- B+ -->
                 <div class="form-group row">
@@ -151,7 +151,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">B+ : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtBplus" class="form-control form-control-sm" id="txtBplus"  
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- B -->
                 <div class="form-group row">
@@ -159,7 +159,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">B : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtB" class="form-control form-control-sm" id="txtB"  
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- C+ -->
                 <div class="form-group row">
@@ -167,7 +167,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">C+ : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtCplus" class="form-control form-control-sm" id="txtCplus"  
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- C -->
                 <div class="form-group row">
@@ -175,7 +175,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">C : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtC" class="form-control form-control-sm" id="txtC"  
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                               <!-- D+ -->
                 <div class="form-group row">
@@ -183,7 +183,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">D+ : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtDplus" class="form-control form-control-sm" id="txtDplus" 
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100"  required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100"  required autofocus></div>
                     </div>
                               <!-- D -->
                 <div class="form-group row">
@@ -191,7 +191,7 @@ $result = $query->FETCH_ASSOC();
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">D : </label>
                     <div class="col-sm-2">
                         <input type="text" name="txtD" class="form-control form-control-sm" id="txtD"  
-                        pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                        pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
                
      

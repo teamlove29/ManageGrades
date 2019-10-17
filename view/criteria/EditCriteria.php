@@ -149,7 +149,7 @@ $query = $conn->query($sql);
                     <div class="col-sm-2">
                         <input  type="text" name="<?php echo 'txt'.$result['ctr_font']; ?>" class="form-control form-control-sm" id="<?php echo 'txt'.$result['ctr_font']; ?>" 
                                 value="<?php echo $result['ctr_score'] ?>"  
-                                pattern="[0-9]ก-ฮA-Za-z.{0,3}"title="Must be number only from 1-100" required autofocus></div>
+                                pattern="^[0-9\s]+$.{0,2}"title="Must be number only from 1-100" required autofocus></div>
                     </div>
 
                <?php } ?>

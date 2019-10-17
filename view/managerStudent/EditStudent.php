@@ -123,7 +123,7 @@ $sql ="SELECT * FROM `student_tb` WHERE `std_id` = '".$id."'";
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">รหัสนักศึกษา : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtcode" class="form-control form-control-sm" id="txtcode" value="<?php echo $result['std_code']; ?>" 
-                        pattern="[0-9]a-zA-Zก-ฮ.{10}"title="Must contain 11 numbers" required autofocus></div>
+                        pattern="^[0-9].{10}"title="Must contain 11 numbers" required autofocus></div>
                 </div>
                
                 <!-- ชื่อ -->
@@ -132,7 +132,7 @@ $sql ="SELECT * FROM `student_tb` WHERE `std_id` = '".$id."'";
                         class="col-sm-4 text-right col-form-label col-form-label-sm font-weight-bold">ชื่อ : </label>
                     <div class="col-sm-5">
                         <input type="text" name="txtname" class="form-control form-control-sm" id="txtname" value="<?php echo $result['std_name']; ?>" 
-                        pattern="[a-zA-Zก-ฮ]0-9.{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus>
+                        pattern="^[a-zA-Zก-ฮ\s].{5,100}"title="Must contain at least 5 characters to 100 characters" required autofocus>
                         </div>
                     </div>
 

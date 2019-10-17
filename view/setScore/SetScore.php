@@ -121,7 +121,7 @@ $resultcheck = $querycheck->FETCH_ASSOC();
 
 <div class="row ">
 <input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtscore" id="txtscore" placeholder="คะแนน" 
-pattern="[0-9]a-zA-Zก-ฮ.{0,3}"title="Must be number only from 1-100"  
+pattern="^[0-9\s]+$.{0,2}"title="Must be score only from 1-100"  
 <?php if($_GET['socre']){ ?> value="<?php echo $_GET['socre']; ?>" <?php } ?> required autofocus>
 <button class="btn btn-success btn-sm m-1 col-1">บันทึก</button> 
 </div>
