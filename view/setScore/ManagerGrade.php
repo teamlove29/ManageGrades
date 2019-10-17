@@ -31,7 +31,7 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>จักการผลการเรียน</title>
+    <title>จัดการผลการเรียน</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -113,7 +113,7 @@ error_reporting(0);
     </div>
 </nav>
 <a class="btn btn-sm btn-secondary mb-2" href="../../view/setScore/SubjectList.php"> < กลับหน้าเดิม</a>
-<h3>จักการผลการเรียน วิชา : <?php echo $resultsub['Sub_Name'] ?></h3>
+<h3>จัดการผลการเรียน วิชา : <?php echo $resultsub['Sub_Name'] ?></h3>
 
 
 
@@ -145,6 +145,7 @@ $querycrt = $conn->query($sqlcrt);
 </select>
 
 <button class="btn btn-sm btn-success col-1 my-auto ml-2">แก้ไข</button>
+<button class="btn btn-sm btn-success col-1 my-auto ml-2" href="">ดูรายงานผล</button>
 </div>
 
 
@@ -169,7 +170,9 @@ $querycrt = $conn->query($sqlcrt);
         <tr>
             <th class="text-center" scope="col">รหัสนักศึกษา</th>
             <th scope="col">ชื่อ - นามสกุล</th>
-            <th class="text-center" scope="col">คะแนน</th>
+            <th class="text-center" scope="col">คะแนนกลางภาค</th>
+            <th class="text-center" scope="col">คะแนนท้ายภาค</th>
+            <th class="text-center" scope="col">คะแนนรวม</th>
             <th class="text-center" scope="col">เกรด</th>
             <th class="text-center" scope="col">จัดการ</th>
           </tr>
@@ -185,26 +188,87 @@ $querycrt = $conn->query($sqlcrt);
                 WHERE course_tb.Sub_Code = '".$_GET['SJ_ID']."'
                 ORDER BY register_tb.std_code";
         $queryshow = $conn->query($sqlshow);
+        $row = mysqli_num_rows($queryshow);
         while($row = $queryshow->FETCH_ASSOC()) {
             $sqlgrade = "   SELECT * FROM `grade_tb` 
                             WHERE `std_code` ='".$row['std_code']."' 
                             AND `sub_code` = '".$row['Sub_Code']."'";
             $querygrade = $conn->query($sqlgrade);
             $resultgrade = $querygrade->FETCH_ASSOC();
+            $resultGPA = $resultgrade['grade_mid'] + $resultgrade['grade_fin'];
             ?>
+
 <tr>
 <td><?php echo $row['std_code']?></td>
 <td><?php echo $row['std_name']?></td>
+<td><?php echo $resultgrade['grade_mid']?></td>
+<td><?php echo $resultgrade['grade_fin']?></td>
 <td><?php echo $resultgrade['GPA']?></td>
 <td><?php echo $resultgrade['grade_font']?></td>
-<td class="text-center"><a class="btn btn-dark btn-sm" href="./SetScore.php?STD_ID=<?php echo $row['std_code']; ?>&socre=<?php echo $resultgrade['GPA']; ?>">จัดการ</a></td>
+<td class="text-center"><a class="btn btn-dark btn-sm" href="./SetScore.php?STD_ID=<?php echo $row['std_code']; ?>&mid=<?php echo $resultgrade['grade_mid']; ?>&fin=<?php echo $resultgrade['grade_fin'];?>">จัดการ</a></td>
 </tr>
-<?php }?>
-            <tbody>
+<?php
 
-              </tbody>
+if($resultgrade['grade_font']=="A")
+{
+    $a=$a+1;
+}if($resultgrade['grade_font']=="B+")
+{
+    $bp=$bp+1;
+}if($resultgrade['grade_font']=="B")
+{
+    $b=$b+1;
+}if($resultgrade['grade_font']=="C+")
+{
+    $cp=$cp+1;
+}if($resultgrade['grade_font']=="C")
+{
+    $c=$c+1;
+}if($resultgrade['grade_font']=="D+")
+{
+    $dp=$dp+1;
+}if($resultgrade['grade_font']=="D")
+{
+    $d=$d+1;
+}if($resultgrade['grade_font']=="F")
+{
+    $f=$f+1;
+}
+
+ }?>
+    
       </table>
 
+<!-- Report grades all table-->
+<table class="table table-bordered mt-2 mx-auto text-center">
+<thead>
+    <tr>
+        <th class="text-center" scope="col">เกรด</th>
+        <th class="text-center" scope="col">จำนวน</th>
+
+      </tr>
+</thead>
+<tbody>
+<tr>
+
+<!-- Report grades all -->
+<?php 
+$gradefont = array("A","B+","B","C+","C","D+","D","F");
+$gradelengh = count($gradefont);
+$graderes = array("$a","$bp","$b","$cp","$c","$d","$dp","$f");
+
+
+for($i = 0; $i < $gradelengh; $i++){ ?>
+    <tr><td><?php echo $gradefont[$i];?></td>
+    <td><?php echo $graderes[$i];?></td></tr>
+
+
+<?php } ?>
+<!--  -->
+
+</tr>
+
+</table>
 
 </div>
 

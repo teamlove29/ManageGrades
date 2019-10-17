@@ -117,18 +117,29 @@ $resultcheck = $querycheck->FETCH_ASSOC();
 
 
 <label for="txtscore" class="mt-3"><?php echo $resultcheck['std_code']." ".$resultcheck['std_name'] ?></label>
-<form action="../../control/grade/Addscore.php" method="POST">
 
+<br>
+
+<form action="../../control/grade/Addscore.php" method="POST">
+<h3>ใส่คะแนนกลางภาค</h3>
+<!-- midterm -->
 <div class="row ">
-<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtscore" id="txtscore" placeholder="คะแนน" 
+<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtmid" id="txtmid" placeholder="คะแนนกลางภาค" 
 pattern="^[0-9\s]+$.{0,2}"title="Must be score only from 1-100"  
-<?php if($_GET['socre']){ ?> value="<?php echo $_GET['socre']; ?>" <?php } ?> required autofocus>
-<button class="btn btn-success btn-sm m-1 col-1">บันทึก</button> 
+<?php if($_GET['mid']){ ?> value="<?php echo $_GET['mid']; ?>" <?php } ?> required autofocus>
+
+</div>
+<br>
+<h3>ใส่คะแนนท้ายภาค</h3>
+<!-- final -->
+<div class="row ">
+<input class="form-control col-form-label col-form-label-sm col-3 ml-3 " name="txtfinal" id="txtfinal" placeholder="คะแนนท้ายภาค" 
+pattern="^[0-9\s]+$.{0,2}"title="Must be score only from 1-100"  
+<?php if($_GET['fin']){ ?> value="<?php echo $_GET['fin']; ?>" <?php } ?> required autofocus>
+ 
 </div>
 
-
-
-
+<button class="btn btn-success btn-sm m-1 col-1">บันทึก</button>
 
 </form>
             <!-- alert  -->

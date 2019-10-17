@@ -31,35 +31,42 @@ while($row = $querytool ->FETCH_ASSOC()){
     }
 }
 
-$grade = $_POST['txtscore'];
+$grademid = $_POST['txtmid'];
 
-       if(($grade>100)||($grade<0)) {    
-         echo "เกรดที่ได้  : ไม่สามารถคิดเกรดได้ คะแนนเกิน".'<br>'; 
-         $grade = NULL;  
+$gradefinal = $_POST['txtfinal'];
+
+$gradeAll = $grademid + $gradefinal;
+
+// Mid term
+     if(($gradeAll>100)||($gradeAll<0)) {    
+         echo "เกรดที่ได้  : ไม่สามารถคิดเกรดได้ คะแนนเกิน"; 
+        
+         header("location: ../../view/setScore/ManagerGrade.php?success=2&SJ_ID=".$_SESSION['SJ_ID']."");
       }
-      else if (($grade>=$scoreA)&&($grade<=100)) {    
+      else if (($gradeAll>=$scoreA)&&($gradeAll<=100)) {    
          $gradeSum = "A";   
       }
-       else if ($grade>=$scoreBb) {    
+       else if ($gradeAll>=$scoreBb) {    
          $gradeSum = "B+";   
       }
-       else if ($grade>=$scoreB) {       
+       else if ($gradeAll>=$scoreB) {       
          $gradeSum = "B";    
       }
-       else if ($grade>=$scoreCc) {
+       else if ($gradeAll>=$scoreCc) {
          $gradeSum = "C+";    
       }
-       else if ($grade>=$scoreC) {    
+       else if ($gradeAll>=$scoreC) {    
          $gradeSum = "C";   
       }
-       else if ($grade>=$scoreDd) {            
+       else if ($gradeAll>=$scoreDd) {            
          $gradeSum = "D+";    
       }
-       else if ($grade>=$scoreD) {       
+       else if ($gradeAll>=$scoreD) {       
          $gradeSum = "D";    
       }
        else {$gradeSum = "F";}   
-
+      
+if(($gradeAll<=100)&&($gradeAll>=0)){
 $sqlcheck = "SELECT * FROM `grade_tb` 
              WHERE `std_code` ='".$_SESSION['STD_ID']."' 
              AND `sub_code` = '".$_SESSION['SJ_ID']."'";
@@ -68,7 +75,7 @@ $querycheck = $conn->query($sqlcheck);
 
     if($querycheck -> num_rows > 0){
         //แกไข
-        $sql = "UPDATE  `grade_tb` SET `GPA`='".$grade."',`grade_font`='".$gradeSum."' 
+        $sql = "UPDATE  `grade_tb` SET `grade_mid`='".$grademid."',`grade_fin`='".$gradefinal."',`GPA`='".$gradeAll."',`grade_font`='".$gradeSum."' 
                 WHERE `std_code` ='".$_SESSION['STD_ID']."' 
                 AND `sub_code` = '".$_SESSION['SJ_ID']."'";
         $query = $conn->query($sql);
@@ -81,8 +88,8 @@ $querycheck = $conn->query($sqlcheck);
     }
     else{
         //เพิ่ม
-        $sql = "INSERT INTO `grade_tb` (`grad_id`, `std_code`, `sub_code`, `GPA`, `grade_font`) 
-                VALUES (NULL, '".$_SESSION['STD_ID']."', '".$_SESSION['SJ_ID']."', '".$grade."', '".$gradeSum."');";
+        $sql = "INSERT INTO `grade_tb` (`grad_id`, `std_code`, `sub_code`, `grade_mid`, `grade_fin`, `GPA`, `grade_font`) 
+                VALUES (NULL, '".$_SESSION['STD_ID']."', '".$_SESSION['SJ_ID']."', '".$grademid."', '".$gradefinal."','".$gradeAll."', '".$gradeSum."');";
         $query = $conn->query($sql);
             if($query==TRUE){
                 header("location: ../../view/setScore/ManagerGrade.php?success=1&SJ_ID=".$_SESSION['SJ_ID']."");
@@ -93,7 +100,7 @@ $querycheck = $conn->query($sqlcheck);
     }
 
 
-
+}
 mysqli_close($conn);
 ?>
 

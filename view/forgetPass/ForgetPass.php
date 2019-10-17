@@ -43,11 +43,11 @@ error_reporting(0);
                         <form name="forgotpassword" method = "POST" action = "../../control/forgetPass/ForgerPass.php">
                             <div class="form-group">
                               <input type="text" name="txtcode" id="txtcode" class="form-control" placeholder="Username" 
-                              pattern="[a-zA-Z0-9].{6,20}" title="Must be only letters " required autofocus>
+                              pattern="{5,20}" title="Must be only letters " required autofocus>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                               <input type="email" name="txtemail" id="txtemail" class="form-control" placeholder="อีเมล์" required>
-                            </div> -->
+                            </div>
                             <button type="submit" class="btn btn-primary btn-sm btn-block">ยืนยัน</button>
                             <a href = "../../index.php" type="text" class="btn btn-secondary btn-sm btn-block">กลับหน้าหลัก ?</a>
                           </form>

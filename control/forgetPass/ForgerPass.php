@@ -10,7 +10,7 @@
     
     // $password = base64_encode($enCodePass);
 
-$sql ="SELECT * FROM `member_tb` WHERE `mb_user` = '".$code."'";
+$sql ="SELECT * FROM `teacher_tb` WHERE `tc_code` = '".$code."' AND `tc_email` = '".$email."' ";
 $query = $conn->query($sql);
 
 

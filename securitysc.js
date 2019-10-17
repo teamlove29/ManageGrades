@@ -150,6 +150,7 @@ if(myScore.value.length >= 0 && myScore.value.length <= 3) {
 }
 
 
+
 // var str = document.getElementById("txtA");
 // var str = document.getElementById("txtBplus");
 // var str = document.getElementById("txtB");
