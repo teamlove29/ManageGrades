@@ -245,7 +245,7 @@ if($resultgrade['grade_font']=="A")
     <tr>
         <th class="text-center" scope="col">เกรด</th>
         <th class="text-center" scope="col">จำนวน</th>
-
+        <!---->
       </tr>
 </thead>
 <tbody>
